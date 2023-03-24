@@ -12,9 +12,9 @@ TagManager:
   - Water
   - UI
   - obstacles
-  - 
-  - 
-  - 
+  - Pages
+  - Panels
+  - Buttons
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Pages
+    uniqueID: 3687488543
+    locked: 0
+  - name: Panels
+    uniqueID: 174720529
+    locked: 0
+  - name: Buttons
+    uniqueID: 974303639
+    locked: 0
+  - name: Camera Positions
+    uniqueID: 253706363
     locked: 0
