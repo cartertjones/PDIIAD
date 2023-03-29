@@ -4,46 +4,114 @@ using UnityEngine;
 
 public class Messages : MonoBehaviour
 {
-    // Start is called before the first frame update
 
-    private int numChildren;
-    List<Message> messages;
+    [SerializeField]
+    public Message[] messages;
 
-    void Start()
+    [SerializeField]
+    private GameObject messagePrefab;
+    [SerializeField]
+    private GameObject parentObject;
+    [SerializeField]
+    private GameObject smartphone;
+
+    [Header("Message Positions")]
+    [SerializeField]
+    private float SENT_X;
+    [SerializeField]
+    private float RECEIVED_X;
+
+    [Header("Message Colors")]
+    [SerializeField]
+    private Color SENT_COLOR;
+    [SerializeField]
+    private Color RECEIVED_COLOR;
+
+    [Header("Message Heights")]
+    [SerializeField]
+    private float maxMessageHeight;
+    [SerializeField]
+    private float minMessageHeight;
+
+    private float boundsX, boundsY;
+    private SpriteRenderer sr;
+
+
+    //message attributes
+    private Color messageColor;
+    private float messageHeight;
+    private float messageX;
+
+
+    private float messageY = 0;
+    private float prevMessageYSize = 0;
+    private float messageWidth = 2f;
+    
+    [SerializeField]
+    private float messageMargins;
+
+
+
+    private void Awake()
     {
-        //instantiate message object list
-        messages = new List<Message>();
+        //foreach item in list
+        //  instantiate new message prefab as child of message group
+        //  set color and x position based on if sent or received
+        //  set y height to random value
+        sr = messagePrefab.GetComponent<SpriteRenderer>();
 
-        //for each child get transform and spriterenderer size
-        foreach(Transform child in transform)
+        //set visible inside smartphone (spritemask)
+        //sr.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+
+        SENT_X += parentObject.transform.position.x;
+        RECEIVED_X += parentObject.transform.position.x;
+
+
+        //set first message y to a margin below top of phone screen
+        SpriteRenderer smartphonesr = smartphone.GetComponent<SpriteRenderer>();
+        messageY = (smartphonesr.bounds.size.y / 2 + smartphone.transform.position.y) - messageMargins;
+
+        //used for naming gameobjects
+        int messageCount = 0;
+
+        foreach(Message m in messages)
         {
-            //get info of child object
-            MessageInfo mi = child.GetComponent<MessageInfo>();
+            messageHeight = Random.Range(minMessageHeight, maxMessageHeight);
 
-            //set temporary values to info values from child
-            Vector3 localPos = child.transform.position;
+            if(m.sent)
+            {
+                messageColor = SENT_COLOR;
+                messageX = SENT_X;
+            }
+            else
+            {
+                messageColor = RECEIVED_COLOR;
+                messageX = RECEIVED_X;
+            }
 
-            Vector3 size = mi.getSize();
+            //attach values to prefab
+            messagePrefab.transform.localScale = new Vector3(messageWidth, messageHeight, messagePrefab.transform.localScale.z);
+            sr.color = messageColor;
 
-            bool sent = mi.isSent();
-            bool redFlag = mi.isRedFlag();
+            //adjust y position
+            messageY = messageY - (sr.bounds.size.y / 2) - (prevMessageYSize / 2) - messageMargins;
 
-            string content = mi.getContent();
+            GameObject message = Instantiate(messagePrefab, new Vector3(messageX, messageY, 0), Quaternion.identity);
+            message.transform.SetParent(parentObject.transform);
 
-            //create new message object and add to data list
-            Message tempMessage = new Message(localPos, size, content, sent, redFlag);
-            messages.Add(tempMessage);
+            message.name = "Element " + messageCount;
+
+            prevMessageYSize = sr.bounds.size.y;
+            messageCount++;
         }
-
-
-        //if message flagged & can be flagged, instantiate red flag object as child of message, delete flag that was dragged
-        //else return flag to hotbar
     }
 
-    void Update()
+    public Color getSentColor()
     {
-        //if mouse within bounds of a message & mouse clicked, pull that message
-
-        //if mouse scrolled, change y position of message group
+        return SENT_COLOR;
+    }
+    public Color getReceivedColor()
+    {
+        return RECEIVED_COLOR;
     }
 }

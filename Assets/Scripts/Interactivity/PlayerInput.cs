@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(0))
         {
             var position = GetMousePositionInWorldCoordinates();
             if(position != null)
@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
             }
         }
     }
-    private Vector3? GetMousePositionInWorldCoordinates()
+    public Vector3? GetMousePositionInWorldCoordinates()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D[] hits = new RaycastHit2D[1];
