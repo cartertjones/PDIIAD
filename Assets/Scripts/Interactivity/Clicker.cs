@@ -9,18 +9,20 @@ public class Clicker : MonoBehaviour
     [SerializeField] GameObject[] pageButtons;
     [SerializeField] GameObject[] panelCameraPos;
     [SerializeField] GameObject[] pageCameraPos;
-    [SerializeField] GameObject slider;
+    
     private float newSize = 1.0f;
     private float oldSize;
     private Vector3 startingCameraPosition;
     private string currentCameraPos;
     private Vector3 cameraPos;
+    
 
     void Awake()
     {
         m_Camera = Camera.main;
         oldSize = m_Camera.orthographicSize;
         startingCameraPosition = m_Camera.transform.position;
+        
     }
     /* void Update()
       {
@@ -39,7 +41,11 @@ public class Clicker : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) // 0 represents the left mouse button
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            Debug.Log("Object clicked: " + hit.collider.gameObject);
+            //Debug.Log("Object clicked: " + hit.collider.gameObject);
+            if (!hit)
+            {
+                return;
+            }
             if (hit.collider.gameObject == panels[0]  && currentCameraPos!= "CameraPos1") //IF the panel1 gameobject is clicked - Move camera to that position
             {
                 // Do something here when the object is clicked
@@ -96,12 +102,12 @@ public class Clicker : MonoBehaviour
 
             }
         }
-        for (int i = 0; i < panelCameraPos.Length; i++)
+        /*for (int i = 0; i < panelCameraPos.Length; i++)
         if (cameraPos == pageCameraPos[i].transform.position)
         {
             slider.SetActive(false);
         }
-        else slider.SetActive(true);
+        else slider.SetActive(true);*/
 
     }
 

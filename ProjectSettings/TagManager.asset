@@ -15,7 +15,7 @@ TagManager:
   - Pages
   - Panels
   - Buttons
-  - 
+  - Trippy Dan
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Trippy Dan
+    uniqueID: 1376303791
     locked: 0
   - name: Pages
     uniqueID: 3687488543
