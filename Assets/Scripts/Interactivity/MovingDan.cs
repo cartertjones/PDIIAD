@@ -22,7 +22,7 @@ public class MovingDan : MonoBehaviour
             isMovingBack = false;
             anim.SetBool("MovingBack", isMovingBack);
         }
-        if (isActivated && (gameObject.transform.position.x > 353))
+        if (isActivated && (gameObject.transform.position.x > 323))
         {
             isMovingBack = true;
             anim.SetBool("MovingBack", isMovingBack);
@@ -43,5 +43,9 @@ public class MovingDan : MonoBehaviour
             gameObject.transform.position = newDanPosition;
         }
 
+    }
+    public void ActivateDan()
+    {
+        isActivated = true;
     }
 }

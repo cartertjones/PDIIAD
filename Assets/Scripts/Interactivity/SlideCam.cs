@@ -9,7 +9,7 @@ public class SlideCam : MonoBehaviour
     [SerializeField] Slider slider;
     private Vector3 startingCameraPosition;
     private Vector3 currentCameraPosition;
-    private float startingSliderValue = 238;
+    private float startingSliderValue = 270;
     private bool isActivated = false;
     private float pageVal;
     private float forwardOrBack; //float to check if page is going forward or back -- 0 is back , 1 is forward
@@ -40,7 +40,7 @@ public class SlideCam : MonoBehaviour
         {
             slider.value = startingSliderValue;
         }
-        if (slider.value == 358)
+        if (slider.value > 358)
         {
             ActivateSlider();
         }
@@ -202,7 +202,7 @@ public class SlideCam : MonoBehaviour
             {
                 ChangePageForward();
             }
-            else if (forwardOrBack == 0)
+            else if (forwardOrBack == 0 && isActivated)
             {
                 ChangePageBackward();
             }
@@ -246,7 +246,7 @@ public class SlideCam : MonoBehaviour
                 ChangePageBackward();
             }
         }
-        if (sliderVal > 355 && sliderVal < 385)
+        /*if (sliderVal > 355 && sliderVal < 385)
         {
             pageVal = 12;
             slider.value = 360;
@@ -258,7 +258,7 @@ public class SlideCam : MonoBehaviour
             {
                 ChangePageBackward();
             }
-        }
+        }*/
 
     }
     private void ChangePageForward() //Set startValue to the current slider value, and set endValue to current slider value + 30, Call the start moving Method  -- changing the page forward
@@ -293,6 +293,10 @@ public class SlideCam : MonoBehaviour
         startValue = slider.value;
         elapsedTime = 0.0f;
         isMoving = true;
+    }
+    public void IncreaseSlider()
+    {
+        slider.maxValue = 360;
     }
 }
 

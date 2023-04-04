@@ -18,7 +18,7 @@ TagManager:
   - Panels
   - Buttons
   - Trippy Dan
-  - 
+  - Inverted Pages
   - 
   - 
   - 
@@ -45,6 +45,9 @@ TagManager:
     locked: 0
   - name: Trippy Dan
     uniqueID: 1376303791
+    locked: 0
+  - name: Inverted Pages
+    uniqueID: 1741629177
     locked: 0
   - name: Pages
     uniqueID: 3687488543
