@@ -4,27 +4,20 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 using System;
 using UnityEngine.UI;
+using TMPro;
 
+//This class is the "driver" class for the message interactivity section. it works in tandem with and implements methods from Messages.cs, Message.cs, EnlargedMessage.cs, and RedFlag.cs
 public class MessageInteractivity : MonoBehaviour
-{
-    /*
-    if mouse clicked
-    get mouse world position
-
-    for each child object of messages, see if sprite contains mouse position
-        if so, get attached message from index given in object name
-        break loop
-
-    instantiate zoomed message prefab, set values given from found message
-        color
-        text
-        redflag
-   */     
+{    
     public LayerMask layer;
     private Messages m;
 
     [SerializeField]
     private GameObject enlargedMessage;
+    private GameObject enlargedText;
+    private GameObject enlargedImage;
+    private GameObject enlargedRedFlag;
+
     [SerializeField]
     private float enlargedX, enlargedY;
 
@@ -34,13 +27,83 @@ public class MessageInteractivity : MonoBehaviour
     [SerializeField]
     private float scrollSpeed;
 
+    private Message messageInfo;
+    public Message MessageInfo{
+        get{
+            return messageInfo;
+        }
+        set{
+            messageInfo = value;
+        }
+    }
+
+    private int activeIndex;
+
+    private List<int> redFlags;
+    public List<int> RedFlags{
+        get{
+            return redFlags;
+        }
+        set{
+            redFlags = value;
+        }
+    }
+    private List<int> discoveredRedFlags;
+    public List<int> DiscoveredRedFlags{
+        get{
+            return discoveredRedFlags;
+        }
+        set
+        {
+            discoveredRedFlags = value;
+        }
+    }
+
+    private GameObject em = null;
+
+    private GameObject redFlagObject;
+    private Vector3 redFlagObjectPos;
+    public Vector3 RedFlagObjectPos{
+        get{
+            return redFlagObjectPos;
+        }
+        set{
+            redFlagObjectPos = value;
+        }
+    }
+
     void Awake()
     {
         m = GetComponent<Messages>();
+        redFlags = new List<int>();
+        discoveredRedFlags = new List<int>();
+
+        redFlagObject = GameObject.Find("RedFlagObject");
+        redFlagObjectPos = redFlagObject.transform.position;
+
+        //note this requires gameobject children at hardcoded indices
+        enlargedText = enlargedMessage.transform.GetChild(0).gameObject;
+        enlargedImage = enlargedMessage.transform.GetChild(1).gameObject;
+        enlargedRedFlag = enlargedMessage.transform.GetChild(2).gameObject;
+
+        enlargedRedFlag.SetActive(false);
+
+        //get index of all red flag messages and add them to a list
+        int index = -1;
+        foreach(Message message in m.messages)
+        {
+            index++;
+            if(message.redFlag)
+            {
+                redFlags.Add(index);
+            }
+        }
     }
 
     void Update()
     {
+        enlargedRedFlag.SetActive(false);
+
         //left click
         if(Input.GetMouseButtonDown(0))
         {
@@ -48,7 +111,6 @@ public class MessageInteractivity : MonoBehaviour
             if(pos != null)
             {
                 Vector3 mousePosition = pos.Value;
-                Debug.Log(mousePosition);
 
                 Transform messageClicked = null;
 
@@ -66,15 +128,20 @@ public class MessageInteractivity : MonoBehaviour
 
                 if(messageClicked != null)
                 {
-                    //do stuff with the message pulled
-                    Debug.Log(messageClicked.name + " clicked");
+                    //delete old message
+                    if(em != null)
+                    {
+                        Destroy(em);
+                    }
 
+                    //do stuff with the message pulled
                     var result = Regex.Match(messageClicked.name, @"\d+$").Value;
-                    Message messageInfo = m.messages[Convert.ToInt32(result)];
+                    activeIndex = Convert.ToInt32(result);
+                    messageInfo = m.messages[activeIndex];
 
                     //instantiate enlarged prefab with information, could be subbed out for a switch with specific images
-                    SpriteRenderer sr = enlargedMessage.GetComponent<SpriteRenderer>();
-                    Text text = enlargedMessage.GetComponent<Text>();
+                    SpriteRenderer sr = enlargedImage.GetComponent<SpriteRenderer>();
+                    TextMeshPro text = enlargedText.GetComponent<TextMeshPro>();
                     if(messageInfo.sent)
                     {
                         sr.color = m.getSentColor();
@@ -86,7 +153,17 @@ public class MessageInteractivity : MonoBehaviour
 
                     text.text = messageInfo.content;
                     
-                    GameObject em = Instantiate(enlargedMessage, new Vector3(enlargedX, enlargedY, 0), Quaternion.identity);
+                    //if this red flag has been discovered previously, enable red flag icon
+                    foreach(int value in discoveredRedFlags)
+                    {
+                        if(activeIndex == value)
+                        {
+                            enlargedRedFlag.SetActive(true);
+                        }
+                    }
+                    
+
+                    em = Instantiate(enlargedMessage, new Vector3(enlargedX, enlargedY, 0), Quaternion.identity);
                 }   
             }  
         }
@@ -97,6 +174,13 @@ public class MessageInteractivity : MonoBehaviour
             float y = transform.position.y + (Input.GetAxisRaw("Mouse ScrollWheel") * scrollSpeed);
             if(y < 0) {y = 0;}
             transform.position = new Vector3(transform.position.x, y, transform.position.z);
+        }
+
+
+        //check if all red flags found, if so print
+        if(discoveredRedFlags.Count == redFlags.Count)
+        {
+            Debug.Log("All red flags found!");
         }
     }
 
@@ -109,5 +193,11 @@ public class MessageInteractivity : MonoBehaviour
             return hits[0].point;
         }
         return null;
+    }
+
+    public void EnableRedFlagIcon(bool value)
+    {
+        em.transform.GetChild(2).gameObject.SetActive(value);
+        discoveredRedFlags.Add(activeIndex);
     }
 }

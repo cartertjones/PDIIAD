@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//this class handles the dev interface for message objects
 public class Messages : MonoBehaviour
 {
 

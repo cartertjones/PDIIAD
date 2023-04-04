@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+//this class manages the message object.
 [System.Serializable]
 public class Message
 {
