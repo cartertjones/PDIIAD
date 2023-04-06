@@ -35,7 +35,7 @@ public class PageManager : MonoBehaviour
     }
     public void RevertPages()
     {
-        for (int i = 0; i < pages.Length; i++)
+        for (int i = 0; i < pages.Length - 2; i++)
         {
             pages[i].gameObject.SetActive(true);
         }

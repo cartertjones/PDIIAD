@@ -30,6 +30,15 @@ public class ButtonSlideManager : MonoBehaviour
             prevPage.gameObject.SetActive(false);
             nextPage.gameObject.SetActive(true);
         }
+        if (slider.value == slider.minValue)
+        {
+            prevPage.gameObject.SetActive(false);
+        }
+        if (slider.value == slider.maxValue)
+        {
+            nextPage.gameObject.SetActive(false);
+        }
+
     }
 
 }

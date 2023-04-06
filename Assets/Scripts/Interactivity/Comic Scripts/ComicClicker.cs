@@ -44,20 +44,20 @@ public class ComicClicker : MonoBehaviour
                 {
                     Debug.Log("Calling player");
                     videoScript.StartVideo1();
-                    pageManager.ActivatePage11();
                     slideCam.AddPage11();
                 }
                 if (pageTracker.timesThroughForward == 2) // if second time through story -- play the second video in the video array -- also activate 11th page
                 {
-                  //  videoPanels[1].SetActive(true);
-                  //  videoPlayers[1].Play();
-                    pageManager.ActivatePage11();
+                    //  videoPanels[1].SetActive(true);
+                    //  videoPlayers[1].Play();
+                    videoScript.StartVideo2();
                     slideCam.AddPage11();
                 }
                 if (pageTracker.timesThroughForward == 3) // if third time through story -- play the third video in the video array also activate 11th & 12th page
                 {
-                //    videoPanels[2].SetActive(true);
-                 //   videoPlayers[2].Play();
+                    //    videoPanels[2].SetActive(true);
+                    //   videoPlayers[2].Play();
+                    videoScript.StartVideo3();
                     pageManager.ActivatePage11();
                     slideCam.AddPage11();
                     pageManager.ActivatePage12();

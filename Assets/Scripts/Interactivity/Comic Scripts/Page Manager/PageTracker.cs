@@ -51,16 +51,17 @@ public class PageTracker : MonoBehaviour
             addTimeBackward();
             pageManager.RevertPages();
             onPage1 = true;
+            slideCam.Hide11();
             if (timesThroughBackward == 1)
             {
-                slideCam.Hide11();
+
             }
         }
         if (slider.value > 15)
         {
             onPage1 = false;
         }
-        if (slider.value > (pageValues.currentSliderMax - 5) && !onLastPage) 
+        if (slider.value > ((pageValues.distanceBetweenPages * 10) - 5) && !onLastPage) 
         {
             Debug.Log("slider val" + slider.value);
             Debug.Log("page values max slider val" + pageValues.currentSliderMax);
@@ -68,7 +69,7 @@ public class PageTracker : MonoBehaviour
             addTimeForward();
             onLastPage = true;
         }
-        if (slider.value < (pageValues.currentSliderMax - 5))
+        if (slider.value < ((pageValues.distanceBetweenPages * 10) - 5))
         {
             onLastPage = false;
         }
