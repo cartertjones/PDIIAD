@@ -22,7 +22,7 @@ public class MovingDan : MonoBehaviour
             isMovingBack = false;
             anim.SetBool("MovingBack", isMovingBack);
         }
-        if (isActivated && (gameObject.transform.position.x > 323))
+        if (isActivated && (gameObject.transform.position.x > 490))
         {
             isMovingBack = true;
             anim.SetBool("MovingBack", isMovingBack);
