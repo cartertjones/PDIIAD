@@ -8,6 +8,8 @@ public class PageValues : MonoBehaviour
 
     [SerializeField] Slider slider;
 
+
+
     public float distanceBetweenPages = 50;
     public float halfPage;
     public float startingSliderValue;

@@ -2416,6 +2416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pageTracker: {fileID: 1672824177}
   pageValues: {fileID: 2121716623}
+  sliderUnlocked: 0
   slider: {fileID: 1901431674}
   moveDuration: 1
 --- !u!114 &870529761
@@ -2466,6 +2467,7 @@ MonoBehaviour:
   movingDan: {fileID: 1919234435}
   pageTracker: {fileID: 1672824177}
   videoScript: {fileID: 1123929936}
+  divorceScript: {fileID: 0}
 --- !u!1 &880895976
 GameObject:
   m_ObjectHideFlags: 0
@@ -4331,10 +4333,12 @@ MonoBehaviour:
   pageManager: {fileID: 1672824176}
   pageValues: {fileID: 2121716623}
   slideCam: {fileID: 870529760}
+  transparentSlider: {fileID: 525486979}
   timesThroughForward: 0
   timesThroughBackward: 0
   movingForward: 0
   movingBackward: 0
+  divorceFinished: 0
   slider: {fileID: 1901431674}
 --- !u!1 &1688412682
 GameObject:

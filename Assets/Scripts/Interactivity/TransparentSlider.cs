@@ -22,6 +22,8 @@ public class TransparentSlider : MonoBehaviour
     {
         currentMatDad = dadSquare.GetComponent<Renderer>().material;
         currentMatMom = momSquare.GetComponent<Renderer>().material;
+        momSquare.gameObject.SetActive(false);
+        dadSquare.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -60,5 +62,10 @@ public class TransparentSlider : MonoBehaviour
     public void ChangeAlpha(UnityEngine.UI.Slider slider)
     {
         OnSliderChanged(slider.value);
+    }
+    public void ShowSquares()
+    {
+        momSquare.gameObject.SetActive(true);
+        dadSquare.gameObject.SetActive(true);
     }
 }

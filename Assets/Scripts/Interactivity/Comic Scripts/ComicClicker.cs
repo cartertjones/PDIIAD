@@ -15,6 +15,7 @@ public class ComicClicker : MonoBehaviour
     public MovingDan movingDan;
     public PageTracker pageTracker;
     public VideoPlayerScript videoScript;
+    public TransparentSlider divorceScript;
 
 
 

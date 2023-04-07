@@ -8,6 +8,8 @@ public class SlideCam : MonoBehaviour
     public PageTracker pageTracker;
     public PageValues pageValues;
 
+    public bool sliderUnlocked;
+
     Camera m_Camera;
     [SerializeField] Slider slider;
 
@@ -36,6 +38,7 @@ public class SlideCam : MonoBehaviour
 
     void Awake()
     {
+        sliderUnlocked = true;
         //Camera Stuff
         m_Camera = Camera.main;
         startingCameraPosition = m_Camera.transform.position;
@@ -58,17 +61,19 @@ public class SlideCam : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!isActivated && slider.value < startingSliderValue)
+
+        if (!isActivated && slider.value < startingSliderValue)//lock the slider from going backwards unless activated
         {
             slider.value = startingSliderValue;
         }
-        if (slider.value > (distanceBetweenPages * 10) - 2)
+        if (slider.value > (distanceBetweenPages * 10) - 2) //if slider is on page 11, activate the slider
         {
             ActivateSlider();
         }
+    
         float currentValue = slider.value;
-
-        if (currentValue != previousValue)
+       
+        if (currentValue != previousValue) //Checks the previous slider value against current value, depending on if moving backwards of forwards, lock slider in opposite direcion
         {
             if (pageTracker.movingForward && currentValue < previousValue)
             {
@@ -78,7 +83,14 @@ public class SlideCam : MonoBehaviour
             {
                 slider.value = previousValue;
             }
-
+            if (!sliderUnlocked && previousValue < currentValue) // if locked - keep slider same value
+            {
+                slider.value = previousValue;
+            }
+            if (!sliderUnlocked && previousValue > currentValue)
+            {
+                slider.value = previousValue;
+            }
             previousValue = slider.value;
         }
         // Code to move slider and camera from one position to another
