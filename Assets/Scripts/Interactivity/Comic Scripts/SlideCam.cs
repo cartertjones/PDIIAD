@@ -21,8 +21,19 @@ public class SlideCam : MonoBehaviour
     private float currentSliderValue;
     private float startingSliderValue;
     private bool isActivated = false;
-    private float pageVal;
-    private float forwardOrBack; //float to check if page is going forward or back -- 0 is back , 1 is forward
+    private int pageVal;
+
+    public int PageVal{
+        get
+        {
+            return pageVal;
+        }
+        set
+        {
+            pageVal = value;
+        }
+    }
+    private bool movingForward;
 
     // Values to gradually move slider and cam from one position to another
 
@@ -126,212 +137,39 @@ public class SlideCam : MonoBehaviour
     }
     public void NextPage()
     {
-        forwardOrBack = 1;
+        movingForward = true;
         CheckPage(slider.value);
     }
     public void BackPage()
     {
-        forwardOrBack = 0;
+        movingForward = false;
         CheckPage(slider.value);
     }
     public void CheckPage(float sliderVal) //check what page the slider is on, give it a variable, move the slider to the middle of that page
     {
-        if (sliderVal >= 0 && sliderVal < halfPage)
-        {
-            pageVal = 0;
-            slider.value = 0;
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-            
-        }
-        if (sliderVal > halfPage && sliderVal < (distanceBetweenPages + halfPage))
-        {
-            pageVal = 1;
-            slider.value = distanceBetweenPages;
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-
-        }
-        if (sliderVal > (distanceBetweenPages + halfPage) && sliderVal < ((distanceBetweenPages *2 ) + halfPage))
-        {
-            pageVal = 2;
-            slider.value = (distanceBetweenPages * 2);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 2) + halfPage) && sliderVal < ((distanceBetweenPages * 3) + halfPage))
-        {
-            pageVal = 3;
-            slider.value = (distanceBetweenPages * 3);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 3) + halfPage) && sliderVal < ((distanceBetweenPages * 4) + halfPage))
-        {
-            pageVal = 4;
-            slider.value = (distanceBetweenPages * 4);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 4) + halfPage) && sliderVal < ((distanceBetweenPages * 5) + halfPage))
-        {
-            pageVal = 5;
-            slider.value = (distanceBetweenPages * 5);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 5) + halfPage) && sliderVal < ((distanceBetweenPages * 6) + halfPage))
-        {
-            pageVal = 6;
-            slider.value = (distanceBetweenPages * 6);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 6) + halfPage) && sliderVal < ((distanceBetweenPages * 7) + halfPage))
-        {
-            pageVal = 7;
-            slider.value = (distanceBetweenPages * 7);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 7) + halfPage) && sliderVal < ((distanceBetweenPages * 8) + halfPage))
-        {
-            pageVal = 8;
-            slider.value = (distanceBetweenPages * 8);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 8) + halfPage) && sliderVal < ((distanceBetweenPages * 9) + halfPage))
-        {
-            pageVal = 9;
-            slider.value = (distanceBetweenPages * 9);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0 && isActivated)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 9) + halfPage) && sliderVal < ((distanceBetweenPages * 10) + halfPage))
-        {
-            pageVal = 10;
-            slider.value = (distanceBetweenPages * 10);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 10) + halfPage) && sliderVal < ((distanceBetweenPages * 11) + halfPage))
-        {
-            pageVal = 11;
-            slider.value = (distanceBetweenPages * 11);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
-        if (sliderVal > ((distanceBetweenPages * 11) + halfPage) && sliderVal < ((distanceBetweenPages * 12) + halfPage))
-        {
-            pageVal = 12;
-            slider.value = (distanceBetweenPages * 12);
-            if (forwardOrBack == 1)
-            {
-                ChangePageForward();
-            }
-            else if (forwardOrBack == 0)
-            {
-                ChangePageBackward();
-            }
-        }
+        pageVal = (int)(slider.value / (distanceBetweenPages));
+        ChangePage(movingForward);
 
     }
-    private void ChangePageForward() //Set startValue to the current slider value, and set endValue to current slider value + 30, Call the start moving Method  -- changing the page forward
+    private void ChangePage(bool movingForward) //Set startValue to the current slider value, and set endValue to current slider value + 30, Call the start moving Method  -- changing the page forward
     {
         if (canClick)
         {
             canClick = false;
             startValue = slider.value;
-            endValue = slider.value + distanceBetweenPages;
+
+            if(movingForward)
+            {
+                endValue = (pageVal + 1) * distanceBetweenPages;
+            }
+            else
+            {
+                endValue = (pageVal - 1) * distanceBetweenPages;
+            }
+
             StartMoving();
             Debug.Log("Page Old " + pageVal + " New Page " + (pageVal + 1));
         }
-    }
-
-    private void ChangePageBackward() ////Set startValue to the current slider value, and set endValue to current slider value - 30, Call the start moving Method -- changing the page backward
-    {
-        if (canClick)
-        {
-            canClick = false;
-            startValue = slider.value;
-            endValue = slider.value - distanceBetweenPages;
-            StartMoving();
-            Debug.Log("Page Old " + pageVal + " New Page " + (pageVal - 1));
-        }
-
     }
 
     // Code to start the slider movement

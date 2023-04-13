@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PageTracker : MonoBehaviour
 {
 
+    //start halfway, go back, read through full story, go back, play interactivity, finish
     public PageManager pageManager;
     public PageValues pageValues;
     public SlideCam slideCam;
