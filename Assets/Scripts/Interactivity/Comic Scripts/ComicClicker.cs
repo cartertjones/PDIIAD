@@ -13,9 +13,9 @@ public class ComicClicker : MonoBehaviour
     public SlideCam slideCam;
     public PageManager pageManager;
     public MovingDan movingDan;
-    public PageTracker pageTracker;
+    public ProgressTracker progressTracker;
     public VideoPlayerScript videoScript;
-    public TransparentSlider divorceScript;
+    public DivorceInteractivity divorceInteractivity;
 
 
 
@@ -41,20 +41,20 @@ public class ComicClicker : MonoBehaviour
             if (hit.collider.gameObject == interactivity[0])//IF the Interactivity0 (fortune Cookie) gameobject is clicked -
             {
                 Debug.Log("Clicked " + hit.collider.gameObject);
-                if (pageTracker.timesThroughForward == 1) // if first time through story -- play the first video in the video array -- also activate 10th page
+                if (progressTracker.timesThroughForward == 0) // if first time through story -- play the first video in the video array -- also activate 10th page
                 {
                     Debug.Log("Calling player");
                     videoScript.StartVideo1();
                     slideCam.AddPage11();
                 }
-                if (pageTracker.timesThroughForward == 2) // if second time through story -- play the second video in the video array -- also activate 11th page
+                if (progressTracker.timesThroughForward == 1) // if second time through story -- play the second video in the video array -- also activate 11th page
                 {
                     //  videoPanels[1].SetActive(true);
                     //  videoPlayers[1].Play();
                     videoScript.StartVideo2();
                     slideCam.AddPage11();
                 }
-                if (pageTracker.timesThroughForward == 3) // if third time through story -- play the third video in the video array also activate 11th & 12th page
+                if (progressTracker.timesThroughForward == 2) // if third time through story -- play the third video in the video array also activate 11th & 12th page
                 {
                     //    videoPanels[2].SetActive(true);
                     //   videoPlayers[2].Play();
@@ -73,8 +73,7 @@ public class ComicClicker : MonoBehaviour
                 slideCam.ActivateSlider();
                 pageManager.InvertPages();
                 movingDan.ActivateDan();
-                pageTracker.movingBackward = true;
-                pageTracker.movingForward = false;
+                progressTracker.movingForward = false;
 
             }
 

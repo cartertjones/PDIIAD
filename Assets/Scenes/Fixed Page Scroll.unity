@@ -498,7 +498,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 161144932}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &95939187
 SpriteRenderer:
@@ -590,9 +590,9 @@ Transform:
   - {fileID: 1060906347}
   - {fileID: 591343370}
   - {fileID: 1542490973}
-  - {fileID: 95939186}
   - {fileID: 567785750}
   - {fileID: 497800213}
+  - {fileID: 95939186}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1085,7 +1085,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 161144932}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &497800214
 SpriteRenderer:
@@ -1185,6 +1185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dadSquare: {fileID: 1485360680}
   momSquare: {fileID: 1688412682}
+  divorceSlider: {fileID: 651671445}
 --- !u!1 &542248608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,7 +1253,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 161144932}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &567785751
 SpriteRenderer:
@@ -2414,7 +2415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3564619b4d6309744a394c8fa851a01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageTracker: {fileID: 1672824177}
+  progressTracker: {fileID: 1672824177}
   pageValues: {fileID: 2121716623}
   sliderUnlocked: 0
   slider: {fileID: 1901431674}
@@ -2465,9 +2466,9 @@ MonoBehaviour:
   slideCam: {fileID: 870529760}
   pageManager: {fileID: 1672824176}
   movingDan: {fileID: 1919234435}
-  pageTracker: {fileID: 1672824177}
+  progressTracker: {fileID: 1672824177}
   videoScript: {fileID: 1123929936}
-  divorceScript: {fileID: 0}
+  divorceInteractivity: {fileID: 525486979}
 --- !u!1 &880895976
 GameObject:
   m_ObjectHideFlags: 0
@@ -4333,11 +4334,10 @@ MonoBehaviour:
   pageManager: {fileID: 1672824176}
   pageValues: {fileID: 2121716623}
   slideCam: {fileID: 870529760}
-  transparentSlider: {fileID: 525486979}
+  divorceInteractivity: {fileID: 525486979}
   timesThroughForward: 0
   timesThroughBackward: 0
   movingForward: 0
-  movingBackward: 0
   divorceFinished: 0
   slider: {fileID: 1901431674}
 --- !u!1 &1688412682
@@ -5376,7 +5376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc940f590d26c784aba0d4873901082c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageTracker: {fileID: 1672824177}
+  progressTracker: {fileID: 1672824177}
   slider: {fileID: 1901431674}
   nextPage: {fileID: 1913892374}
   prevPage: {fileID: 1552689929}

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ButtonSlideManager : MonoBehaviour
 {
-    public PageTracker pageTracker;
+    public ProgressTracker progressTracker;
     [SerializeField] private Slider slider;
     [SerializeField] private GameObject nextPage;
     [SerializeField] private GameObject prevPage;
@@ -20,12 +20,12 @@ public class ButtonSlideManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pageTracker.movingBackward)
+        if (!progressTracker.movingForward)
         {
             prevPage.gameObject.SetActive(true);
             nextPage.gameObject.SetActive(false);
         }
-        if (pageTracker.movingForward)
+        if (progressTracker.movingForward)
         {
             prevPage.gameObject.SetActive(false);
             nextPage.gameObject.SetActive(true);

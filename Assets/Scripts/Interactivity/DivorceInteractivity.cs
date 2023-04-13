@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 
 
-public class TransparentSlider : MonoBehaviour
+public class DivorceInteractivity : MonoBehaviour
 {
     //[SerializeField] private UnityEngine.UI.Slider slider;
     [SerializeField] private GameObject dadSquare;
     [SerializeField] private GameObject momSquare;
+    [SerializeField] private Slider divorceSlider;
     private Material currentMatDad;
     private Material currentMatMom;
 
@@ -63,9 +64,18 @@ public class TransparentSlider : MonoBehaviour
     {
         OnSliderChanged(slider.value);
     }
-    public void ShowSquares()
+    public void Show()
     {
+        //todo add slider enabler
+        divorceSlider.gameObject.SetActive(true);
         momSquare.gameObject.SetActive(true);
         dadSquare.gameObject.SetActive(true);
+    }
+    public void Hide()
+    {
+        //todo add slider enabler
+        divorceSlider.gameObject.SetActive(false);
+        momSquare.gameObject.SetActive(false);
+        dadSquare.gameObject.SetActive(false);
     }
 }

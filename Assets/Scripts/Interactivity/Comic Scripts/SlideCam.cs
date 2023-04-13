@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SlideCam : MonoBehaviour
 {
-    public PageTracker pageTracker;
+    public ProgressTracker progressTracker;
     public PageValues pageValues;
 
     public bool sliderUnlocked;
@@ -22,6 +22,7 @@ public class SlideCam : MonoBehaviour
     private float startingSliderValue;
     private bool isActivated = false;
     private int pageVal;
+    
 
     public int PageVal{
         get
@@ -43,12 +44,17 @@ public class SlideCam : MonoBehaviour
     private float startValue;
     private float endValue;
     private float elapsedTime = 0.0f;
-    private bool isMoving = false;
+    private bool isMoving;
+    public bool IsMoving
+    {
+        get{ return isMoving; }
+    }
 
     private float previousValue;
 
     void Awake()
     {
+        isMoving = false;
         sliderUnlocked = true;
         //Camera Stuff
         m_Camera = Camera.main;
@@ -72,6 +78,7 @@ public class SlideCam : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        UpdatePageVal(slider.value);
 
         if (!isActivated && slider.value < startingSliderValue)//lock the slider from going backwards unless activated
         {
@@ -86,11 +93,11 @@ public class SlideCam : MonoBehaviour
        
         if (currentValue != previousValue) //Checks the previous slider value against current value, depending on if moving backwards of forwards, lock slider in opposite direcion
         {
-            if (pageTracker.movingForward && currentValue < previousValue)
+            if (progressTracker.movingForward && currentValue < previousValue)
             {
                 slider.value = previousValue;
             }
-            else if (pageTracker.movingBackward && currentValue > previousValue)
+            else if (!progressTracker.movingForward && currentValue > previousValue)
             {
                 slider.value = previousValue;
             }
@@ -147,9 +154,8 @@ public class SlideCam : MonoBehaviour
     }
     public void CheckPage(float sliderVal) //check what page the slider is on, give it a variable, move the slider to the middle of that page
     {
-        pageVal = (int)(slider.value / (distanceBetweenPages));
+        UpdatePageVal(sliderVal);
         ChangePage(movingForward);
-
     }
     private void ChangePage(bool movingForward) //Set startValue to the current slider value, and set endValue to current slider value + 30, Call the start moving Method  -- changing the page forward
     {
@@ -191,6 +197,11 @@ public class SlideCam : MonoBehaviour
     public void Hide11()
     {
         slider.maxValue = (distanceBetweenPages * 10);
+    }
+
+    public void UpdatePageVal(float sliderVal)
+    {
+        pageVal = (int)(sliderVal / (distanceBetweenPages));
     }
 
 }
