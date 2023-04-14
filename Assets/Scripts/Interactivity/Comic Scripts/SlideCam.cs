@@ -8,7 +8,12 @@ public class SlideCam : MonoBehaviour
     public ProgressTracker progressTracker;
     public PageValues pageValues;
 
-    public bool sliderUnlocked;
+    private bool sliderUnlocked;
+    public bool SliderUnlocked
+    {
+        get{ return sliderUnlocked; }
+        set{ sliderUnlocked = value; }
+    }
 
     Camera m_Camera;
     [SerializeField] Slider slider;
@@ -144,13 +149,19 @@ public class SlideCam : MonoBehaviour
     }
     public void NextPage()
     {
-        movingForward = true;
-        CheckPage(slider.value);
+        if(sliderUnlocked)
+        {
+            movingForward = true;
+            CheckPage(slider.value);
+        }
     }
     public void BackPage()
     {
-        movingForward = false;
-        CheckPage(slider.value);
+        if(sliderUnlocked)
+        {
+            movingForward = false;
+            CheckPage(slider.value);
+        }
     }
     public void CheckPage(float sliderVal) //check what page the slider is on, give it a variable, move the slider to the middle of that page
     {

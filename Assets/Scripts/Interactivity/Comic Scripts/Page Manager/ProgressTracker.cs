@@ -48,16 +48,12 @@ public class ProgressTracker : MonoBehaviour
     {
         //get current page
         pageVal = slideCam.PageVal;
-        Debug.Log(pageVal);
 
         //activate interactivity if second time through
         if(timesThroughForward == 1)
         {
             interactivityActive = true;
         }
-
-        //debugging 
-        Debug.Log(slideCam.IsMoving);
 
         //hide all interactivity if the camera is moving
         if(slideCam.IsMoving)
@@ -78,7 +74,19 @@ public class ProgressTracker : MonoBehaviour
                 //activate divorce if moving forward and interactivity enabled (2nd time through) and camera not moving
                 if(interactivityActive && movingForward && !slideCam.IsMoving)
                 {
-                    divorceInteractivity.Show();
+                    //if activity has not been played yet
+                    if(!divorceInteractivity.ActivityComplete)
+                    {
+                        divorceInteractivity.Show();
+                        //lock camera
+                        slideCam.SliderUnlocked = false;
+                    }
+                    
+                    //unlock when complete
+                    if(divorceInteractivity.ActivityComplete)
+                    {
+                        slideCam.SliderUnlocked = true;
+                    }
                 }
                 break;
             case 3:
