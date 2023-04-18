@@ -108,6 +108,7 @@ public class SlideCam : MonoBehaviour
             }
             if (!sliderUnlocked && previousValue < currentValue) // if locked - keep slider same value
             {
+                Debug.Log("Slider Locked");
                 slider.value = previousValue;
             }
             if (!sliderUnlocked && previousValue > currentValue)
