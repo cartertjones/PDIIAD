@@ -30,7 +30,7 @@ public class PageManager : MonoBehaviour
         for (int i = 0; i < pages.Length; i++)
         {
             pages[i].gameObject.SetActive(false);
-            Debug.Log("Pages Inverted");
+            //Debug.Log("Pages Inverted");
         }
     }
     public void RevertPages()

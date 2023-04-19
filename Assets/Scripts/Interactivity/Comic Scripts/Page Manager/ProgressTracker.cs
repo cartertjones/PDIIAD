@@ -99,8 +99,21 @@ public class ProgressTracker : MonoBehaviour
             case 11:
                 timesThroughForward++;
                 movingForward = false;
+
                 break;
         }
+
+        if (movingForward)
+        {
+            pageManager.RevertPages();
+            slideCam.BackgroundToWhite();
+        }
+        else
+        {
+            pageManager.InvertPages();
+            slideCam.BackgroundToBlack();
+        }
+
     }
 
     private void HideAllInteractivity()

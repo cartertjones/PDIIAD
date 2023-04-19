@@ -216,5 +216,14 @@ public class SlideCam : MonoBehaviour
         pageVal = (int)(sliderVal / (distanceBetweenPages));
     }
 
+    public void BackgroundToBlack()
+    {
+        m_Camera.backgroundColor = Color.black;
+    }
+    public void BackgroundToWhite()
+    {
+        m_Camera.backgroundColor = Color.white;
+    }
+
 }
 

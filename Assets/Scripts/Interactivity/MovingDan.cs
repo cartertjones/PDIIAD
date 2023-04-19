@@ -7,10 +7,19 @@ public class MovingDan : MonoBehaviour
 {
     [SerializeField] Slider slider;
     [SerializeField] private bool isActivated;
+    [SerializeField] private AnimationCurve alphaCurve;
+
     private bool isMovingBack;
     private Animator anim;
     private Vector3 newDanPosition;
-    // Start is called before the first frame update
+
+    public float fadeDuration = 3f; // Fade duration in seconds
+    private float elapsedTime; // Time elapsed since fading started
+    
+    private float startTime;
+    private bool hasFadedIn = false;
+    private float alphaValue;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -27,6 +36,15 @@ public class MovingDan : MonoBehaviour
             isMovingBack = true;
             anim.SetBool("MovingBack", isMovingBack);
         }
+        if (isActivated && !hasFadedIn)
+        {
+            FadeObject();
+            startTime = Time.time;
+        }
+        /*if (alphaValue == 255f)
+        {
+            hasFadedIn = true;
+        }*/
     }
 
     public void onSliderChanged(float sliderValue)
@@ -47,5 +65,14 @@ public class MovingDan : MonoBehaviour
     public void ActivateDan()
     {
         isActivated = true;
+    }
+
+    void FadeObject()
+    {
+        elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsedTime / fadeDuration);
+        float curveNum = Mathf.Lerp(0f, 3f, t);
+        alphaValue = alphaCurve.Evaluate(curveNum);
+        GetComponent<SpriteRenderer>().color = new Color (255, 255, 255, alphaValue); // Apply the new color to the gameObject
     }
 }
