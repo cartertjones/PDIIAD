@@ -7,6 +7,10 @@ public class SlideCam : MonoBehaviour
 {
     public ProgressTracker progressTracker;
     public PageValues pageValues;
+    public CameraManager cameraManager;
+
+    [SerializeField] private GameObject virtualCameraOne;
+    
 
     private bool sliderUnlocked;
     public bool SliderUnlocked
@@ -14,6 +18,10 @@ public class SlideCam : MonoBehaviour
         get{ return sliderUnlocked; }
         set{ sliderUnlocked = value; }
     }
+
+    public bool onLastPanelInPage = true; // bool for checking in on last panel in a page
+    public bool onAPanel = false;
+
 
     Camera m_Camera;
     [SerializeField] Slider slider;
@@ -138,7 +146,7 @@ public class SlideCam : MonoBehaviour
     void updateCameraPos(float value) // Give currentCameraPosition the x value of the slider, then move the camera to this new position
     {
         currentCameraPosition.x = value;
-        m_Camera.transform.position = currentCameraPosition;
+        virtualCameraOne.transform.position = currentCameraPosition;
     }
     public void onSliderChanged(float sliderValue)
     {
@@ -150,16 +158,24 @@ public class SlideCam : MonoBehaviour
     }
     public void NextPage()
     {
-        if(sliderUnlocked)
+        if (sliderUnlocked && onLastPanelInPage)
         {
+            cameraManager.SetMainCamera();
             movingForward = true;
             CheckPage(slider.value);
+        }
+        if (onAPanel)
+        {
+            Debug.Log("Next Page clicked");
+            cameraManager.SettingCam = true;
+            cameraManager.GoToNextPanel();
         }
     }
     public void BackPage()
     {
-        if(sliderUnlocked)
+        if(sliderUnlocked && onLastPanelInPage)
         {
+            cameraManager.SetMainCamera();
             movingForward = false;
             CheckPage(slider.value);
         }

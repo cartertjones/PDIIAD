@@ -7,8 +7,17 @@ public class ComicClicker : MonoBehaviour
 {
     Camera m_Camera;
     [SerializeField] GameObject[] interactivity;
+    [SerializeField] GameObject[] pageZeroPanels;
+    [SerializeField] GameObject[] pageOnePanels;
+    [SerializeField] GameObject[] pageTwoPanels;
+    [SerializeField] GameObject[] pageThreePanels;
+    [SerializeField] GameObject[] pageFourPanels;
+    [SerializeField] GameObject[] pageFivePanels;
+
     [SerializeField] GameObject[] pages;
     [SerializeField] GameObject[] inversePages;
+
+    private GameObject[][] panelsPages;
 
     public SlideCam slideCam;
     public PageManager pageManager;
@@ -16,13 +25,14 @@ public class ComicClicker : MonoBehaviour
     public ProgressTracker progressTracker;
     public VideoPlayerScript videoScript;
     public DivorceInteractivity divorceInteractivity;
+    public CameraManager cameraManager;
 
 
 
     void Awake()
     {
         m_Camera = Camera.main;
-
+        panelsPages = new GameObject[][] { pageZeroPanels, pageOnePanels, pageTwoPanels, pageThreePanels, pageFourPanels, pageFivePanels };
 
     }
 
@@ -32,8 +42,9 @@ public class ComicClicker : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) // 0 represents the left mouse button
         {
+            Debug.Log("clicked");
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            //Debug.Log("Object clicked: " + hit.collider.gameObject);
+           // Debug.Log("Object clicked: " + hit.collider.gameObject);
             if (!hit)
             {
                 return;
@@ -75,6 +86,19 @@ public class ComicClicker : MonoBehaviour
                 movingDan.ActivateDan();
                 progressTracker.movingForward = false;
 
+            }
+            for (int i = 0; i < panelsPages.Length; i++)
+            {
+                for (int j = 0; j < panelsPages[i].Length; j++)
+                {
+                    if (hit.collider.gameObject == panelsPages[i][j])
+                    {
+                        Debug.Log("An object in array " + i + " at position " + j + " was clicked!");
+                        cameraManager.SettingCam = true;
+                        cameraManager.MoveToPanel(i, j);
+                        return;
+                    }
+                }
             }
 
 
