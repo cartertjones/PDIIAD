@@ -102,6 +102,10 @@ public class ComicClicker : MonoBehaviour
             {
                 bsm.ActivateElements();
             }
+            if (hit.collider.gameObject == interactivity[3])
+            {
+                cameraManager.MoveToPhone();
+            }
             for (int i = 0; i < panelsPages.Length; i++)
             {
                 for (int j = 0; j < panelsPages[i].Length; j++)

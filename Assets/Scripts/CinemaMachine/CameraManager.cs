@@ -24,6 +24,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject[] pageElevenCameras; //an array of all the virtual cameras on page 11
     [SerializeField] private GameObject[] pageTwelveCameras; //an array of all the virtual cameras on page 12
 
+    [SerializeField] private GameObject phoneScreen;
+
 
 
 
@@ -56,7 +58,6 @@ public class CameraManager : MonoBehaviour
             lastPage = currentPage;
             lastPanel = currentPanel;
         }
-
     }
 
     public void MoveToPanel(int page, int panel)
@@ -117,5 +118,15 @@ public class CameraManager : MonoBehaviour
         Debug.Log("next page check: current panel + 1 " + currentPanel + 1);
 
         MoveToPanel(currentPage, panelIndex);
+    }
+    public void MoveToPhone()
+    {
+        pages[lastPage][lastPanel].gameObject.SetActive(false);
+        phoneScreen.gameObject.SetActive(true);
+    }
+    public void ReturnToBreakupPage()
+    {
+        phoneScreen.gameObject.SetActive(false);
+        pages[lastPage][lastPanel].gameObject.SetActive(true);
     }
 }

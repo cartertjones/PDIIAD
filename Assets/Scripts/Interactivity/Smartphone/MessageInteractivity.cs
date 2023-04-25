@@ -25,6 +25,9 @@ public class MessageInteractivity : MonoBehaviour
     private GameObject screen;
 
     [SerializeField]
+    private GameObject smartphone;
+
+    [SerializeField]
     private float scrollSpeed;
 
     private Message messageInfo;
@@ -72,8 +75,22 @@ public class MessageInteractivity : MonoBehaviour
         }
     }
 
+    private bool activityComplete;
+    public bool ActivityComplete{
+        get{
+            return activityComplete;
+        }
+        set{
+            activityComplete = value;
+        }
+    }
+
+    [SerializeField] private CameraManager camMan;
+
     void Awake()
     {
+        activityComplete = false;
+
         m = GetComponent<Messages>();
         redFlags = new List<int>();
         discoveredRedFlags = new List<int>();
@@ -164,6 +181,8 @@ public class MessageInteractivity : MonoBehaviour
                     
 
                     em = Instantiate(enlargedMessage, new Vector3(enlargedX, enlargedY, 0), Quaternion.identity);
+                    
+                    em.transform.localScale = new Vector3(5,5,0);
                 }   
             }  
         }
@@ -172,15 +191,17 @@ public class MessageInteractivity : MonoBehaviour
         else if(Input.GetAxisRaw("Mouse ScrollWheel") != 0)
         {
             float y = transform.position.y + (Input.GetAxisRaw("Mouse ScrollWheel") * scrollSpeed);
-            if(y < 0) {y = 0;}
-            transform.position = new Vector3(transform.position.x, y, transform.position.z);
+            if(y < smartphone.transform.position.y) {y = smartphone.transform.position.y;}
+
+            this.transform.position = new Vector3(transform.position.x, y, transform.position.z);
         }
 
 
         //check if all red flags found, if so print
-        if(discoveredRedFlags.Count == redFlags.Count)
+        if(discoveredRedFlags.Count == redFlags.Count && !activityComplete)
         {
-            Debug.Log("All red flags found!");
+            activityComplete = true;
+            camMan.ReturnToBreakupPage();
         }
     }
 

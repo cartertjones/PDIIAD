@@ -11,6 +11,7 @@ public class ProgressTracker : MonoBehaviour
     public PageValues pageValues;
     public SlideCam slideCam;
     public DivorceInteractivity divorceInteractivity;
+    public MessageInteractivity messageInteractivity;
 
     public float timesThroughForward = 0;
     public float timesThroughBackward = 0;
@@ -92,7 +93,16 @@ public class ProgressTracker : MonoBehaviour
             case 3:
                 if(interactivityActive && movingForward)
                 {
+                    if(!messageInteractivity.ActivityComplete)
+                    {
+                        slideCam.SliderUnlocked = false;
+                    }
 
+                    //unlock when complete
+                    if(messageInteractivity.ActivityComplete)
+                    {
+                        slideCam.SliderUnlocked = true;
+                    }
                 }
                 break;
             //add more cases to use interactivity
