@@ -16,6 +16,14 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject[] pageThreeCameras; //an array of all the virtual cameras on page 3
     [SerializeField] private GameObject[] pageFourCameras; //an array of all the virtual cameras on page 4
     [SerializeField] private GameObject[] pageFiveCameras; //an array of all the virtual cameras on page 5
+    [SerializeField] private GameObject[] pageSixCameras; //an array of all the virtual cameras on page 6
+    [SerializeField] private GameObject[] pageSevenCameras; //an array of all the virtual cameras on page 7
+    [SerializeField] private GameObject[] pageEightCameras; //an array of all the virtual cameras on page 8
+    [SerializeField] private GameObject[] pageNineCameras; //an array of all the virtual cameras on page 9
+    [SerializeField] private GameObject[] pageTenCameras; //an array of all the virtual cameras on page 10
+    [SerializeField] private GameObject[] pageElevenCameras; //an array of all the virtual cameras on page 11
+    [SerializeField] private GameObject[] pageTwelveCameras; //an array of all the virtual cameras on page 12
+
 
 
 
@@ -33,8 +41,8 @@ public class CameraManager : MonoBehaviour
 
     void Awake()
     {
-        pages = new GameObject[][] { pageZeroCameras, pageOneCameras, pageTwoCameras, pageThreeCameras, pageFourCameras, pageFiveCameras };
-        pageZeroCameras[0].gameObject.SetActive(true);
+        pages = new GameObject[][] { pageZeroCameras, pageOneCameras, pageTwoCameras, pageThreeCameras, pageFourCameras, pageFiveCameras, pageSixCameras, pageSevenCameras, pageEightCameras, pageNineCameras, pageTenCameras, pageElevenCameras, pageTwelveCameras };
+        //pageZeroCameras[0].gameObject.SetActive(true);
         currentPage = 0;
         currentPanel = 0;
         SettingCam = false;

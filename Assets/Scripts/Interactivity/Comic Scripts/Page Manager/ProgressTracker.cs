@@ -97,8 +97,11 @@ public class ProgressTracker : MonoBehaviour
                 break;
             //add more cases to use interactivity
             case 11:
-                timesThroughForward++;
-                movingForward = false;
+                if (movingForward)
+                {
+                    timesThroughForward++;
+                    movingForward = false;
+                }
 
                 break;
         }

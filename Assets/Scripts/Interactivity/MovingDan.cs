@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MovingDan : MonoBehaviour
 {
     [SerializeField] Slider slider;
+    public ProgressTracker progressTracker;
     [SerializeField] private bool isActivated;
     [SerializeField] private AnimationCurve alphaCurve;
 
@@ -31,7 +32,7 @@ public class MovingDan : MonoBehaviour
             isMovingBack = false;
             anim.SetBool("MovingBack", isMovingBack);
         }
-        if (isActivated && (gameObject.transform.position.x > 490))
+        if (isActivated && !progressTracker.movingForward/*(gameObject.transform.position.x > 490)*/)
         {
             isMovingBack = true;
             anim.SetBool("MovingBack", isMovingBack);

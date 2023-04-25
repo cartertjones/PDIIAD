@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Video;
 
 public class ComicClicker : MonoBehaviour
@@ -13,6 +14,14 @@ public class ComicClicker : MonoBehaviour
     [SerializeField] GameObject[] pageThreePanels;
     [SerializeField] GameObject[] pageFourPanels;
     [SerializeField] GameObject[] pageFivePanels;
+    [SerializeField] GameObject[] pageSixPanels;
+    [SerializeField] GameObject[] pageSevenPanels;
+    [SerializeField] GameObject[] pageEightPanels;
+    [SerializeField] GameObject[] pageNinePanels;
+    [SerializeField] GameObject[] pageTenPanels;
+    [SerializeField] GameObject[] pageElevenPanels;
+    [SerializeField] GameObject[] pageTwelvePanels;
+
 
     [SerializeField] GameObject[] pages;
     [SerializeField] GameObject[] inversePages;
@@ -26,13 +35,14 @@ public class ComicClicker : MonoBehaviour
     public VideoPlayerScript videoScript;
     public DivorceInteractivity divorceInteractivity;
     public CameraManager cameraManager;
+    public ButtonSlideManager bsm;
 
 
 
     void Awake()
     {
         m_Camera = Camera.main;
-        panelsPages = new GameObject[][] { pageZeroPanels, pageOnePanels, pageTwoPanels, pageThreePanels, pageFourPanels, pageFivePanels };
+        panelsPages = new GameObject[][] { pageZeroPanels, pageOnePanels, pageTwoPanels, pageThreePanels, pageFourPanels, pageFivePanels, pageSixPanels, pageSevenPanels, pageEightPanels, pageNinePanels, pageTenPanels, pageElevenPanels, pageTwelvePanels };
 
     }
 
@@ -42,6 +52,7 @@ public class ComicClicker : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) // 0 represents the left mouse button
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
             Debug.Log("clicked");
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
            // Debug.Log("Object clicked: " + hit.collider.gameObject);
@@ -87,6 +98,10 @@ public class ComicClicker : MonoBehaviour
                 progressTracker.movingForward = false;
 
             }
+            if (hit.collider.gameObject == interactivity[2])
+            {
+                bsm.ActivateElements();
+            }
             for (int i = 0; i < panelsPages.Length; i++)
             {
                 for (int j = 0; j < panelsPages[i].Length; j++)
@@ -105,10 +120,6 @@ public class ComicClicker : MonoBehaviour
         }
 
     }
-    private void StopVideo()
-    {
-        
 
-    }
 
 }
