@@ -12,6 +12,7 @@ public class ProgressTracker : MonoBehaviour
     public SlideCam slideCam;
     public DivorceInteractivity divorceInteractivity;
     public MessageInteractivity messageInteractivity;
+    public MagnifyingGlass weddingInteractivity;
 
     public float timesThroughForward = 0;
     public float timesThroughBackward = 0;
@@ -104,6 +105,22 @@ public class ProgressTracker : MonoBehaviour
                         slideCam.SliderUnlocked = true;
                     }
                 }
+                break;
+            case 4:
+                if(interactivityActive && movingForward)
+                {
+                    if(!weddingInteractivity.ActivityComplete)
+                    {
+                        slideCam.SliderUnlocked = false;
+                        weddingInteractivity.Show();
+                    }
+
+                    //unlock when complete
+                    if(weddingInteractivity.ActivityComplete)
+                    {
+                        slideCam.SliderUnlocked = true;
+                    }
+                } 
                 break;
             //add more cases to use interactivity
             case 11:
