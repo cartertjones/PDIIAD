@@ -102,6 +102,16 @@ public class SlideCam : MonoBehaviour
             ActivateSlider();
         }
     
+        //lock slider if using panel camera
+        if(onAPanel)
+        {
+            sliderUnlocked = false;
+        }
+        else
+        {
+            sliderUnlocked = true;
+        }
+        
         float currentValue = slider.value;
        
         if (currentValue != previousValue) //Checks the previous slider value against current value, depending on if moving backwards of forwards, lock slider in opposite direcion
