@@ -50,4 +50,15 @@ public class PageManager : MonoBehaviour
         pages[12].gameObject.SetActive(true);
         inversePages[12].gameObject.SetActive(true);
     }
+    public void ActivateCover()
+    {
+        Debug.Log("Cover Active");
+        pages[0].gameObject.SetActive(true);
+    }
+    public void HideCover()
+    {
+        Debug.Log("Cover Hidden");
+        pages[0].gameObject.SetActive(false);
+    }
+
 }
