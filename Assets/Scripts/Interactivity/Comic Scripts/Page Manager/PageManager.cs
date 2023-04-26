@@ -6,6 +6,7 @@ public class PageManager : MonoBehaviour
 {
     [SerializeField] GameObject[] pages;
     [SerializeField] GameObject[] inversePages;
+    [SerializeField] private GameObject cover;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,12 +14,6 @@ public class PageManager : MonoBehaviour
         pages[12].gameObject.SetActive(false);
         inversePages[11].gameObject.SetActive(false);
         inversePages[12].gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     public void AddPages()
     {
@@ -29,15 +24,22 @@ public class PageManager : MonoBehaviour
     {
         for (int i = 0; i < pages.Length; i++)
         {
-            pages[i].gameObject.SetActive(false);
-            //Debug.Log("Pages Inverted");
+            //skip cover
+            if(i != 0)
+            {
+                pages[i].gameObject.SetActive(false);
+            }
         }
     }
     public void RevertPages()
     {
         for (int i = 0; i < pages.Length - 2; i++)
         {
-            pages[i].gameObject.SetActive(true);
+            //skip cover
+            if(i != 0)
+            {
+                pages[i].gameObject.SetActive(true);
+            } 
         }
     }
     public void ActivatePage11()
@@ -50,15 +52,8 @@ public class PageManager : MonoBehaviour
         pages[12].gameObject.SetActive(true);
         inversePages[12].gameObject.SetActive(true);
     }
-    public void ActivateCover()
+    public void ActivateCover(bool param)
     {
-        Debug.Log("Cover Active");
-        pages[0].gameObject.SetActive(true);
+        cover.SetActive(param);
     }
-    public void HideCover()
-    {
-        Debug.Log("Cover Hidden");
-        pages[0].gameObject.SetActive(false);
-    }
-
 }

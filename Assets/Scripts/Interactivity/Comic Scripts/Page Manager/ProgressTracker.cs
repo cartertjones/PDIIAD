@@ -63,10 +63,25 @@ public class ProgressTracker : MonoBehaviour
             HideAllInteractivity();
         }
 
+        if(pageVal == 0 && movingForward)
+        {
+            pageManager.ActivateCover(true);
+        }
+        else if(!movingForward)
+        {
+            pageManager.ActivateCover(true);
+        }
+        else
+        {
+            pageManager.ActivateCover(false);
+        }
+        
+
+        //remove
+        Debug.Log("ProgressTracker.cs: On page " + pageVal);
         switch(pageVal)
         {
             case 0:
-                pageManager.ActivateCover();
                 if(!movingForward && slideCamSlider.value == 0)
                 {
                     timesThroughBackward++;
@@ -74,13 +89,10 @@ public class ProgressTracker : MonoBehaviour
                 }
                 break;
             case 1:
-                pageManager.HideCover();
-                Debug.Log("page 1");
-
                 //activate divorce if moving forward and interactivity enabled (2nd time through) and camera not moving
                 if (interactivityActive && movingForward && !slideCam.IsMoving)
                 {
-                                       //if activity has not been played yet
+                    //if activity has not been played yet
                     if(!divorceInteractivity.ActivityComplete)
                     {
                         divorceInteractivity.Show();
@@ -127,7 +139,6 @@ public class ProgressTracker : MonoBehaviour
                 }
                 break;
             case 7:
-                pageManager.HideCover();
                 break;
             //add more cases to use interactivity
             case 11:

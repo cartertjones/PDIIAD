@@ -77,8 +77,9 @@ public class SlideCam : MonoBehaviour
         //Set distance between pages as what is set in PageValues Script
         distanceBetweenPages = pageValues.distanceBetweenPages;
 
-        //Starting Slider value, 8th page
-        startingSliderValue = distanceBetweenPages * 7;
+        //Starting Slider value, cover
+        startingSliderValue = distanceBetweenPages * 0;
+
 
         //Slider Values
         slider.value = startingSliderValue;
@@ -92,6 +93,14 @@ public class SlideCam : MonoBehaviour
     private void Update()
     {
         UpdatePageVal(slider.value);
+
+        //move to page 8 once user clicks on cover first time through
+        if(progressTracker.timesThroughForward == 0 && pageVal == 0 && Input.GetMouseButtonDown(0))
+        {
+            startValue = slider.value;
+            endValue = distanceBetweenPages * 7;
+            StartMoving();
+        }
 
         if (!isActivated && slider.value < startingSliderValue)//lock the slider from going backwards unless activated
         {
@@ -239,7 +248,15 @@ public class SlideCam : MonoBehaviour
 
     public void UpdatePageVal(float sliderVal)
     {
-        pageVal = (int)(sliderVal / (distanceBetweenPages));
+        if(progressTracker.movingForward)
+        {
+            pageVal = (int)Mathf.Floor(sliderVal / distanceBetweenPages);
+        }
+        else
+        {
+            pageVal = (int)Mathf.Ceil(sliderVal / distanceBetweenPages);
+        }
+        
     }
 
     public void BackgroundToBlack()
