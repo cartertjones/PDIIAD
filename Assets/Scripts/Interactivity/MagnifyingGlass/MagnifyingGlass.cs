@@ -9,6 +9,8 @@ public class MagnifyingGlass : MonoBehaviour
     private GameObject bigSheet;
     private Lens lens;
 
+    [SerializeField] private Sprite finalImage;
+
     private bool activityComplete;
     public bool ActivityComplete{
         get{
@@ -39,13 +41,29 @@ public class MagnifyingGlass : MonoBehaviour
             if(activityComplete)
             {
                 Debug.Log("Target found");
+                AudioManager.Instance.PlaySFX("complete");
+
+                SpriteMask lsm = lens.GetComponent<SpriteMask>();
+                Destroy(lsm);
+
+                SpriteRenderer lsr = lens.GetComponent<SpriteRenderer>();
+                lsr.sprite = finalImage;
+
+                Drag ld = lens.GetComponent<Drag>();
+                Destroy(ld);
+
+                lens.transform.localScale = new Vector3(0.04f, 0.04f, 1);
             }
         }
     }
 
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
     public void Show()
     {
-        bigSheet.SetActive(true);
         gameObject.SetActive(true);
+        bigSheet.SetActive(true);
     }
 }

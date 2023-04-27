@@ -19,7 +19,7 @@ public class ProgressTracker : MonoBehaviour
     public bool movingForward;
 
     private int pageVal;
-    private Slider slideCamSlider;
+    [SerializeField] private Slider slideCamSlider;
 
     bool interactivityActive;
 
@@ -41,9 +41,6 @@ public class ProgressTracker : MonoBehaviour
 
         //hide all interactivity at start
         HideAllInteractivity();
-
-        slideCamSlider = GameObject.Find("Canvas/Slider").GetComponent<Slider>();
-
     }
 
     void Update()
@@ -75,10 +72,7 @@ public class ProgressTracker : MonoBehaviour
         {
             pageManager.ActivateCover(false);
         }
-        
 
-        //remove
-        Debug.Log("ProgressTracker.cs: On page " + pageVal);
         switch(pageVal)
         {
             case 0:
@@ -167,6 +161,7 @@ public class ProgressTracker : MonoBehaviour
     private void HideAllInteractivity()
     {
         divorceInteractivity.Hide();
+        weddingInteractivity.Hide();
         //TODO add more interactivity connections
     }
 }

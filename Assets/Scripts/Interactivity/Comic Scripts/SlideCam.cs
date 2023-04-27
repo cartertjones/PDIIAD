@@ -25,6 +25,7 @@ public class SlideCam : MonoBehaviour
 
     Camera m_Camera;
     [SerializeField] Slider slider;
+    [SerializeField] private GameObject[] movementButtons;
 
     private float distanceBetweenPages;
 
@@ -87,6 +88,12 @@ public class SlideCam : MonoBehaviour
 
         //Half a Page Value
         halfPage = distanceBetweenPages / 2;
+
+
+        foreach(GameObject obj in movementButtons)
+        {
+            obj.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -110,40 +117,50 @@ public class SlideCam : MonoBehaviour
         {
             ActivateSlider();
         }
-    
-        //lock slider if using panel camera
-        if(onAPanel)
+        
+        //disable movement ui if locked and not on first time through
+        if(progressTracker.timesThroughForward != 0)
         {
-            sliderUnlocked = false;
-        }
-        else
-        {
-            sliderUnlocked = true;
+            foreach(GameObject obj in movementButtons)
+            {
+                //always set slider based on bool
+                if(obj.name == "Slider")
+                {
+                    obj.SetActive(sliderUnlocked);
+                }
+
+                //set buttons based on bool, if on a panel, and direction
+                else if(!sliderUnlocked && !onAPanel)
+                {
+                    obj.SetActive(false);
+                }
+                else
+                {
+                    if(progressTracker.movingForward && obj.name == "Next Page")
+                    {
+                        obj.SetActive(true);
+                    }
+                    else if(!progressTracker.movingForward && obj.name == "Back Page")
+                    {
+                        obj.SetActive(true);
+                    }
+                }
+            }
         }
         
-        float currentValue = slider.value;
-       
-        if (currentValue != previousValue) //Checks the previous slider value against current value, depending on if moving backwards of forwards, lock slider in opposite direcion
+
+        //disallow slider movement opposite of story direction
+        float currentVal = slider.value;
+        if(progressTracker.movingForward && currentVal < previousValue)
         {
-            if (progressTracker.movingForward && currentValue < previousValue)
-            {
-                slider.value = previousValue;
-            }
-            else if (!progressTracker.movingForward && currentValue > previousValue)
-            {
-                slider.value = previousValue;
-            }
-            if (!sliderUnlocked && previousValue < currentValue) // if locked - keep slider same value
-            {
-                Debug.Log("Slider Locked");
-                slider.value = previousValue;
-            }
-            if (!sliderUnlocked && previousValue > currentValue)
-            {
-                slider.value = previousValue;
-            }
-            previousValue = slider.value;
+            slider.value = previousValue;
         }
+        else if(!progressTracker.movingForward && currentVal > previousValue)
+        {
+            slider.value = previousValue;
+        }
+        previousValue = slider.value;
+
         // Code to move slider and camera from one position to another
         //checks if the slider is currently moving, and if it is, it calculates the current time elapsed and lerps the slider's value from its starting value
         //to the end value using Mathf.Lerp(). The Mathf.Clamp01() function is used to ensure that t (the interpolation factor) remains between 0 and 1.
@@ -189,6 +206,13 @@ public class SlideCam : MonoBehaviour
             cameraManager.SettingCam = true;
             cameraManager.GoToNextPanel();
         }
+        if(pageVal == 0 && progressTracker.timesThroughForward == 0)
+        {
+            cameraManager.SetMainCamera();
+            movingForward = true;
+            CheckPage(8 * distanceBetweenPages);
+            Debug.Log("going to page 8");
+        }
     }
     public void BackPage()
     {
@@ -229,6 +253,7 @@ public class SlideCam : MonoBehaviour
     // sets the starting value of the slider to its current value, resets the elapsed time to 0, and sets isMoving to true to start the movement.
     public void StartMoving()
     {
+        AudioManager.Instance.PlaySFX("turn page");
         startValue = slider.value;
         elapsedTime = 0.0f;
         isMoving = true;
@@ -256,7 +281,6 @@ public class SlideCam : MonoBehaviour
         {
             pageVal = (int)Mathf.Ceil(sliderVal / distanceBetweenPages);
         }
-        
     }
 
     public void BackgroundToBlack()

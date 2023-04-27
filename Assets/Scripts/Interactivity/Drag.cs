@@ -12,6 +12,7 @@ public class Drag : MonoBehaviour
     {
         mouseDown = false;
         difference = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
+        AudioManager.Instance.PlaySFX("click");
     }
 
     private void OnMouseDrag()

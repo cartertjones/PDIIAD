@@ -55,6 +55,10 @@ public class DivorceInteractivity : MonoBehaviour
             if (divorceSlider.value <= -0.99f)
             {
                 momSet = true;
+                if(!dadSet)
+                {
+                    AudioManager.Instance.PlaySFX("correct");
+                }
             }
         }
         if (divorceSlider.value > 0f && !dadSet)
@@ -69,6 +73,10 @@ public class DivorceInteractivity : MonoBehaviour
             if (divorceSlider.value >= 0.99f)
             {
                 dadSet = true;
+                if(!momSet)
+                {
+                    AudioManager.Instance.PlaySFX("correct");
+                }
             }
         }
 
@@ -80,6 +88,8 @@ public class DivorceInteractivity : MonoBehaviour
 
             //hide slider when activity complete
             divorceSlider.gameObject.SetActive(false);
+
+            AudioManager.Instance.PlaySFX("complete");
         }
     }
     public void ChangeAlpha(UnityEngine.UI.Slider slider)

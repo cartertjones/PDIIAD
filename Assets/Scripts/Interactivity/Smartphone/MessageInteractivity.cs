@@ -201,6 +201,9 @@ public class MessageInteractivity : MonoBehaviour
         if(discoveredRedFlags.Count == redFlags.Count && !activityComplete)
         {
             activityComplete = true;
+
+            AudioManager.Instance.PlaySFX("complete");
+
             camMan.ReturnToBreakupPage();
         }
     }
@@ -220,5 +223,7 @@ public class MessageInteractivity : MonoBehaviour
     {
         em.transform.GetChild(2).gameObject.SetActive(value);
         discoveredRedFlags.Add(activeIndex);
+
+        AudioManager.Instance.PlaySFX("correct");
     }
 }
