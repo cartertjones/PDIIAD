@@ -48,6 +48,7 @@ public class MagnifyingGlass : MonoBehaviour
 
                 SpriteRenderer lsr = lens.GetComponent<SpriteRenderer>();
                 lsr.sprite = finalImage;
+                lsr.color = new Color(lsr.color.r, lsr.color.g, lsr.color.b, 1);
 
                 Drag ld = lens.GetComponent<Drag>();
                 Destroy(ld);

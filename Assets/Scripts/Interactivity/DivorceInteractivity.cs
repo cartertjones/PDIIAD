@@ -24,6 +24,8 @@ public class DivorceInteractivity : MonoBehaviour
     private bool momSet = false;
     private bool dadSet = false;
 
+    private float previousValue;
+
     //used to determine if player completed the activity
     private bool activityComplete;
     public bool ActivityComplete
@@ -32,7 +34,7 @@ public class DivorceInteractivity : MonoBehaviour
         set{ activityComplete = value; }
     }
 
-    void Start()
+    private void Start()
     {
         msr = momPanel.GetComponent<SpriteRenderer>();
         dsr = dadPanel.GetComponent<SpriteRenderer>();
@@ -41,8 +43,9 @@ public class DivorceInteractivity : MonoBehaviour
         Reset();
     }
 
-     void OnSliderChanged(float changeAmount)
+    public void OnValueChanged()
     {
+        float changeAmount = divorceSlider.value - previousValue;
         if (divorceSlider.value < 0f && !momSet)
         {
             Color momOldColor = currentMatMom.color;
@@ -91,10 +94,8 @@ public class DivorceInteractivity : MonoBehaviour
 
             AudioManager.Instance.PlaySFX("complete");
         }
-    }
-    public void ChangeAlpha(UnityEngine.UI.Slider slider)
-    {
-        OnSliderChanged(slider.value);
+
+        previousValue = divorceSlider.value;
     }
 
     //show all relevant gameobjects

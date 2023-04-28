@@ -21,7 +21,7 @@ public class ProgressTracker : MonoBehaviour
     private int pageVal;
     [SerializeField] private Slider slideCamSlider;
 
-    bool interactivityActive;
+    public bool interactivityActive;
 
     public bool divorceFinished;
 

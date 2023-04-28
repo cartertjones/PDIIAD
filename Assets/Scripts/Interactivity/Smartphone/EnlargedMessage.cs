@@ -49,6 +49,11 @@ public class EnlargedMessage : MonoBehaviour
                     if(messageInfo.redFlag)
                     {
                         mi.EnableRedFlagIcon(true);
+                        AudioManager.Instance.PlaySFX("correct");
+                    }
+                    else
+                    {
+                        AudioManager.Instance.PlaySFX("incorrect");
                     }
 
                     List<int> discoveredRedFlags = mi.DiscoveredRedFlags;

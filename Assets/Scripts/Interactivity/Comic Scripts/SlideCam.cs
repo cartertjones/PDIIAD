@@ -119,31 +119,38 @@ public class SlideCam : MonoBehaviour
         }
         
         //disable movement ui if locked and not on first time through
-        if(progressTracker.timesThroughForward != 0)
+        if(progressTracker.timesThroughForward >= 0)
         {
             foreach(GameObject obj in movementButtons)
             {
-                //always set slider based on bool
-                if(obj.name == "Slider")
-                {
-                    obj.SetActive(sliderUnlocked);
-                }
+                //initially disable, will reenable if should be active
+                obj.SetActive(false);
 
-                //set buttons based on bool, if on a panel, and direction
-                else if(!sliderUnlocked && !onAPanel)
+                //if on cover for first time, skip
+                if(pageVal == 0 && progressTracker.timesThroughForward == 0){continue;}
+
+                switch(obj.name)
                 {
-                    obj.SetActive(false);
-                }
-                else
-                {
-                    if(progressTracker.movingForward && obj.name == "Next Page")
-                    {
-                        obj.SetActive(true);
-                    }
-                    else if(!progressTracker.movingForward && obj.name == "Back Page")
-                    {
-                        obj.SetActive(true);
-                    }
+                    case "Slider":
+                        //set slider to sliderUnlocked value
+                        obj.SetActive(sliderUnlocked);
+                        break;
+                    case "Next Page":
+                        if(progressTracker.movingForward){obj.SetActive(true);}
+                        else{obj.SetActive(false);}
+
+                        if(slider.value == slider.maxValue){obj.SetActive(false);}
+
+                        if(!sliderUnlocked && !onAPanel){obj.SetActive(false);}
+                        break;
+                    case "Back Page":
+                        if(!progressTracker.movingForward){obj.SetActive(true);}
+                        else{obj.SetActive(false);}
+
+                        if(slider.value == slider.minValue){obj.SetActive(false);}
+
+                        if(!sliderUnlocked && !onAPanel){obj.SetActive(false);}
+                        break;
                 }
             }
         }

@@ -18,7 +18,7 @@ public class MessageInteractivity : MonoBehaviour
     private GameObject enlargedImage;
     private GameObject enlargedRedFlag;
 
-    [SerializeField]
+    [SerializeField] private GameObject activityActivator;
     private float enlargedX, enlargedY;
 
     [SerializeField]
@@ -86,6 +86,7 @@ public class MessageInteractivity : MonoBehaviour
     }
 
     [SerializeField] private CameraManager camMan;
+    [SerializeField] private ProgressTracker progressTracker;
 
     void Awake()
     {
@@ -102,6 +103,10 @@ public class MessageInteractivity : MonoBehaviour
         enlargedText = enlargedMessage.transform.GetChild(0).gameObject;
         enlargedImage = enlargedMessage.transform.GetChild(1).gameObject;
         enlargedRedFlag = enlargedMessage.transform.GetChild(2).gameObject;
+
+        //hardcoded im sorry
+        enlargedX = this.gameObject.transform.position.x + -20;
+        enlargedY = this.gameObject.transform.position.y + 3;
 
         enlargedRedFlag.SetActive(false);
 
@@ -120,6 +125,15 @@ public class MessageInteractivity : MonoBehaviour
     void Update()
     {
         enlargedRedFlag.SetActive(false);
+
+        if(activityComplete || !progressTracker.interactivityActive || !progressTracker.movingForward)
+        {
+            activityActivator.SetActive(false);
+        }
+        else if(!activityComplete && progressTracker.interactivityActive)
+        {
+            activityActivator.SetActive(true);
+        }
 
         //left click
         if(Input.GetMouseButtonDown(0))
@@ -223,7 +237,5 @@ public class MessageInteractivity : MonoBehaviour
     {
         em.transform.GetChild(2).gameObject.SetActive(value);
         discoveredRedFlags.Add(activeIndex);
-
-        AudioManager.Instance.PlaySFX("correct");
     }
 }

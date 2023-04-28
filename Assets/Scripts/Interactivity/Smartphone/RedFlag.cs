@@ -7,7 +7,6 @@ using UnityEngine;
 public class RedFlag : MonoBehaviour
 {
     MessageInteractivity mi;
-
     void Start()
     {
         mi = GameObject.Find("Screen").GetComponent<MessageInteractivity>();

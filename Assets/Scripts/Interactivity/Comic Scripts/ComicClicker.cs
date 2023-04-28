@@ -35,7 +35,6 @@ public class ComicClicker : MonoBehaviour
     public VideoPlayerScript videoScript;
     public DivorceInteractivity divorceInteractivity;
     public CameraManager cameraManager;
-    public ButtonSlideManager bsm;
 
 
 
@@ -100,7 +99,7 @@ public class ComicClicker : MonoBehaviour
             }
             if (hit.collider.gameObject == interactivity[2])
             {
-                bsm.ActivateElements();
+                //bullying interactivity add stuff here
             }
             if (hit.collider.gameObject == interactivity[3])
             {
