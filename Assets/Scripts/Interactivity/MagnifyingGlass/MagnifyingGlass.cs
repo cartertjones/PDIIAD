@@ -6,7 +6,7 @@ public class MagnifyingGlass : MonoBehaviour
 {
     private MagnifyingGlassTargeter mgt;
 
-    private GameObject bigSheet;
+    [SerializeField] private GameObject bigSheet;
     private Lens lens;
 
     [SerializeField] private Sprite finalImage;
@@ -24,7 +24,6 @@ public class MagnifyingGlass : MonoBehaviour
     void Start()
     {
         lens = GameObject.Find("MagnifyingGlass/Lens").GetComponent<Lens>();
-        bigSheet = lens.BigSheet.gameObject;
         bigSheet.SetActive(false);
 
         activityComplete = false;

@@ -19464,6 +19464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b295f9ddf51ca3648afd737633bf0187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bigSheet: {fileID: 1184052872}
   finalImage: {fileID: 21300000, guid: 908508c06be42164cb330a995eaf953b, type: 3}
 --- !u!114 &8415435411141295433
 MonoBehaviour:
