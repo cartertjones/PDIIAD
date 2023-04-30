@@ -18918,20 +18918,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messages:
   - redFlag: 0
-    sent: 1
-    content: test
-  - redFlag: 1
     sent: 0
-    content: testing *
+    content: Hey, can we talk?
   - redFlag: 0
     sent: 1
-    content: tested
+    content: Sure, what's up?
+  - redFlag: 0
+    sent: 0
+    content: I've been thinking about what we talked about the other day.
   - redFlag: 0
     sent: 1
-    content: should test
+    content: About me talking to that girl in math class?
   - redFlag: 1
     sent: 0
-    content: this works? *
+    content: Yeah, that. It just really bothered me that you were being so friendly
+      with her.
+  - redFlag: 0
+    sent: 1
+    content: I told you, we were just talking about the homework.
+  - redFlag: 1
+    sent: 0
+    content: But it still felt like you were crossing a line. Like you were getting
+      too close to her.
+  - redFlag: 0
+    sent: 1
+    content: I don't understand why you're so upset. I thought we agreed that it
+      was okay for me to have friends who are girls.
+  - redFlag: 0
+    sent: 0
+    content: It's not about you having friends who are girls. It's about you not
+      respecting our relationship.
+  - redFlag: 0
+    sent: 1
+    content: It just seems like you're putting more effort into your friendship with
+      her than you are into our relationship.
+  - redFlag: 0
+    sent: 0
+    content: It just seems like you're putting more effort into your friendship with
+      her than you are into our relationship.
+  - redFlag: 0
+    sent: 1
+    content: That's not true at all. I care about you and our relationship.
+  - redFlag: 0
+    sent: 0
+    content: Then why do I feel like you're not really present with me? Like you're
+      always distracted by something else.
+  - redFlag: 0
+    sent: 1
+    content: 'I''m sorry if I''ve been distant lately. I didn''t realize it was affecting
+      you like this.  '
+  - redFlag: 0
+    sent: 0
+    content: It just feels like you're not taking our relationship seriously.
+  - redFlag: 0
+    sent: 1
+    content: I am taking it seriously, I promise. I'll try to do better and show
+      you that I care.
+  - redFlag: 1
+    sent: 0
+    content: I just don't know if I can trust you anymore.
   messagePrefab: {fileID: 7492922955203175660, guid: 1826db5b33a11a64d8daece8850b3231, type: 3}
   parentObject: {fileID: 5677765910710908084}
   smartphone: {fileID: 5677765911635356461}

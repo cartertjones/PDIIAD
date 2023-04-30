@@ -135,6 +135,9 @@ public class SlideCam : MonoBehaviour
                         //set slider to sliderUnlocked value
                         obj.SetActive(sliderUnlocked);
                         break;
+                    case "Slider Backing":
+                        obj.SetActive(sliderUnlocked);
+                        break;
                     case "Next Page":
                         if(progressTracker.movingForward){obj.SetActive(true);}
                         else{obj.SetActive(false);}
