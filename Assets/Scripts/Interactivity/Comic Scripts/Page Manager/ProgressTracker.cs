@@ -13,6 +13,9 @@ public class ProgressTracker : MonoBehaviour
     public DivorceInteractivity divorceInteractivity;
     public MessageInteractivity messageInteractivity;
     public MagnifyingGlass weddingInteractivity;
+    public PulsingAlpha cookiePulsingAlpha;
+    public PulsingAlpha breakupPulsingAlpha;
+
 
     public float timesThroughForward = 0;
     public float timesThroughBackward = 0;
@@ -80,6 +83,7 @@ public class ProgressTracker : MonoBehaviour
                 {
                     timesThroughBackward++;
                     movingForward = true;
+                    cookiePulsingAlpha.cookieClicked = false; //reset cookie pulsing
                 }
                 break;
             case 1:
@@ -107,12 +111,15 @@ public class ProgressTracker : MonoBehaviour
                     if(!messageInteractivity.ActivityComplete)
                     {
                         slideCam.SliderUnlocked = false;
+                        breakupPulsingAlpha.StartPulsing();
                     }
 
                     //unlock when complete
                     if(messageInteractivity.ActivityComplete)
                     {
                         slideCam.SliderUnlocked = true;
+                        breakupPulsingAlpha.StopPulsing();
+
                     }
                 }
                 break;
@@ -135,6 +142,12 @@ public class ProgressTracker : MonoBehaviour
             case 7:
                 break;
             //add more cases to use interactivity
+            case 10:
+                if (movingForward)
+                {
+                    cookiePulsingAlpha.PulseEnable(); // start pulsing aplha of the fortune cookie object
+                }    
+                break;
             case 11:
                 if (movingForward)
                 {

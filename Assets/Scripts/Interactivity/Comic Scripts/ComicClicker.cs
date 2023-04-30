@@ -35,6 +35,8 @@ public class ComicClicker : MonoBehaviour
     public VideoPlayerScript videoScript;
     public DivorceInteractivity divorceInteractivity;
     public CameraManager cameraManager;
+    public PulsingAlpha cookiePulsingAlpha;
+    public PulsingAlpha breakupPulsingAlpha;
 
 
 
@@ -67,6 +69,8 @@ public class ComicClicker : MonoBehaviour
                     Debug.Log("Calling player");
                     videoScript.StartVideo1();
                     slideCam.AddPage11();
+                    cookiePulsingAlpha.StopPulsing(); // stop the pulsing of the cookie
+                    cookiePulsingAlpha.cookieClicked = true; // set cookie clicked bool so the case set in progress tracker doesnt continue to pulse it
                 }
                 if (progressTracker.timesThroughForward == 1) // if second time through story -- play the second video in the video array -- also activate 11th page
                 {
@@ -74,6 +78,9 @@ public class ComicClicker : MonoBehaviour
                     //  videoPlayers[1].Play();
                     videoScript.StartVideo2();
                     slideCam.AddPage11();
+                    cookiePulsingAlpha.StopPulsing(); // stop the pulsing of the cookie
+                    cookiePulsingAlpha.cookieClicked = true; // set cookie clicked bool so the case set in progress tracker doesnt continue to pulse it
+
                 }
                 if (progressTracker.timesThroughForward == 2) // if third time through story -- play the third video in the video array also activate 11th & 12th page
                 {
@@ -84,6 +91,10 @@ public class ComicClicker : MonoBehaviour
                     slideCam.AddPage11();
                     pageManager.ActivatePage12();
                     slideCam.AddPage12();
+                    cookiePulsingAlpha.StopPulsing(); // stop the pulsing of the cookie
+                    cookiePulsingAlpha.cookieClicked = true; // set cookie clicked bool so the case set in progress tracker doesnt continue to pulse it
+
+
                 }
 
 
@@ -101,9 +112,11 @@ public class ComicClicker : MonoBehaviour
             {
                 //bullying interactivity add stuff here
             }
-            if (hit.collider.gameObject == interactivity[3])
+            if (hit.collider.gameObject == interactivity[3]) // if the interactivity3 (breakup) gameobject is clicker -
             {
                 cameraManager.MoveToPhone();
+                breakupPulsingAlpha.StopPulsing();
+               
             }
             for (int i = 0; i < panelsPages.Length; i++)
             {
