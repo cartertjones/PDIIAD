@@ -105,7 +105,7 @@ public class MessageInteractivity : MonoBehaviour
         enlargedRedFlag = enlargedMessage.transform.GetChild(2).gameObject;
 
         //hardcoded im sorry
-        enlargedX = this.gameObject.transform.position.x + -20;
+        enlargedX = this.gameObject.transform.position.x + -25;
         enlargedY = this.gameObject.transform.position.y + 3;
 
         enlargedRedFlag.SetActive(false);
@@ -173,6 +173,9 @@ public class MessageInteractivity : MonoBehaviour
                     //instantiate enlarged prefab with information, could be subbed out for a switch with specific images
                     SpriteRenderer sr = enlargedImage.GetComponent<SpriteRenderer>();
                     TextMeshPro text = enlargedText.GetComponent<TextMeshPro>();
+
+                    text.fontSize = 2;
+
                     if(messageInfo.sent)
                     {
                         sr.color = m.getSentColor();
@@ -196,7 +199,7 @@ public class MessageInteractivity : MonoBehaviour
 
                     em = Instantiate(enlargedMessage, new Vector3(enlargedX, enlargedY, 0), Quaternion.identity);
                     
-                    em.transform.localScale = new Vector3(5,5,0);
+                    em.transform.localScale = new Vector3(7,7,0);
                 }   
             }  
         }
@@ -237,5 +240,12 @@ public class MessageInteractivity : MonoBehaviour
     {
         em.transform.GetChild(2).gameObject.SetActive(value);
         discoveredRedFlags.Add(activeIndex);
+    }
+
+     private bool IsBetween(double testValue, double bound1, double bound2)
+    {
+        if (bound1 > bound2)
+            return testValue >= bound2 && testValue <= bound1;
+        return testValue >= bound1 && testValue <= bound2;
     }
 }
