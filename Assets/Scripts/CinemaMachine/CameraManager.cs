@@ -66,7 +66,7 @@ public class CameraManager : MonoBehaviour
         if (cameraStopped)
         {
             progTracker.intPanelorPage = true;
-            Debug.Log("stopped moving");
+            progTracker.onIntPanel = false;
         }
 
     }
@@ -96,6 +96,7 @@ public class CameraManager : MonoBehaviour
             slideCam.onAPanel = false;
             if (page == 1)
             {
+                progTracker.onIntPanel = true;
                 StartCoroutine(WaitAndSetBoolCoroutine());
             }
         }

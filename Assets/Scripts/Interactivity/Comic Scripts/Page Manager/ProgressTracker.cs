@@ -33,6 +33,7 @@ public class ProgressTracker : MonoBehaviour
     private bool onLastPage;
    
     public bool intPanelorPage = false; // bool for  if on a page view or interactive panel
+    public bool onIntPanel = false;
 
 
 
@@ -94,6 +95,10 @@ public class ProgressTracker : MonoBehaviour
                     if (slideCam.onAPanel)
                     {
                         intPanelorPage = false;
+                    }
+                    else if (!onIntPanel)
+                    {
+                        intPanelorPage = true;
                     }
                     //if activity has not been played yet
                     if(!divorceInteractivity.ActivityComplete && intPanelorPage)
