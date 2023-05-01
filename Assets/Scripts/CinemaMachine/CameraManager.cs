@@ -8,6 +8,8 @@ using Unity.VisualScripting;
 public class CameraManager : MonoBehaviour
 {
     public SlideCam slideCam;
+    public ProgressTracker progTracker;
+    public DivorceInteractivity divInt;
 
 
     [SerializeField] private GameObject[] pageZeroCameras; //an array of all the virtual cameras on page 0
@@ -26,7 +28,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private GameObject phoneScreen;
 
-
+    private CinemachineBrain brain;
 
 
 
@@ -41,8 +43,11 @@ public class CameraManager : MonoBehaviour
 
     public bool SettingCam;
 
+    public bool cameraStopped = false;
+
     void Awake()
     {
+        brain = FindObjectOfType<CinemachineBrain>();
         pages = new GameObject[][] { pageZeroCameras, pageOneCameras, pageTwoCameras, pageThreeCameras, pageFourCameras, pageFiveCameras, pageSixCameras, pageSevenCameras, pageEightCameras, pageNineCameras, pageTenCameras, pageElevenCameras, pageTwelveCameras };
         //pageZeroCameras[0].gameObject.SetActive(true);
         currentPage = 0;
@@ -58,6 +63,12 @@ public class CameraManager : MonoBehaviour
             lastPage = currentPage;
             lastPanel = currentPanel;
         }
+        if (cameraStopped)
+        {
+            progTracker.intPanelorPage = true;
+            Debug.Log("stopped moving");
+        }
+
     }
 
     public void MoveToPanel(int page, int panel)
@@ -73,11 +84,20 @@ public class CameraManager : MonoBehaviour
         //Debug.Log("pages[page].Length " + pages[page].Length);
         panelIndex = panel;
         Debug.Log("panel index clicker " + panelIndex);
+        if (page == 1 && panel != 3 )
+        {
+            progTracker.intPanelorPage = false;
+            divInt.Hide();
+        }
         if (panel == pages[page].Length -1 ) // check if panel that we are on is the last panel by checking the length of the array. Have to minus one due to 0 position of array
         {
             Debug.Log("On last panel");
             slideCam.onLastPanelInPage = true;
             slideCam.onAPanel = false;
+            if (page == 1)
+            {
+                StartCoroutine(WaitAndSetBoolCoroutine());
+            }
         }
         else
         {
@@ -128,5 +148,11 @@ public class CameraManager : MonoBehaviour
     {
         phoneScreen.gameObject.SetActive(false);
         pages[lastPage][lastPanel].gameObject.SetActive(true);
+    }
+
+    private IEnumerator WaitAndSetBoolCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        cameraStopped = true;
     }
 }

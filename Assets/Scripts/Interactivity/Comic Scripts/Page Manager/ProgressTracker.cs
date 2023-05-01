@@ -31,7 +31,8 @@ public class ProgressTracker : MonoBehaviour
     [SerializeField] private Slider slider;
     private bool onPage1;
     private bool onLastPage;
-
+   
+    public bool intPanelorPage = false; // bool for  if on a page view or interactive panel
 
 
 
@@ -83,20 +84,25 @@ public class ProgressTracker : MonoBehaviour
                 {
                     timesThroughBackward++;
                     movingForward = true;
-                    cookiePulsingAlpha.cookieClicked = false; //reset cookie pulsing
+                    cookiePulsingAlpha.Clicked = false; //reset cookie pulsing
                 }
                 break;
             case 1:
                 //activate divorce if moving forward and interactivity enabled (2nd time through) and camera not moving
                 if (interactivityActive && movingForward && !slideCam.IsMoving)
                 {
+                    if (slideCam.onAPanel)
+                    {
+                        intPanelorPage = false;
+                    }
                     //if activity has not been played yet
-                    if(!divorceInteractivity.ActivityComplete)
+                    if(!divorceInteractivity.ActivityComplete && intPanelorPage)
                     {
                         divorceInteractivity.Show();
                         //lock camera
                         slideCam.SliderUnlocked = false;
                     }
+
                     
                     //unlock when complete
                     if(divorceInteractivity.ActivityComplete)
@@ -111,7 +117,7 @@ public class ProgressTracker : MonoBehaviour
                     if(!messageInteractivity.ActivityComplete)
                     {
                         slideCam.SliderUnlocked = false;
-                        breakupPulsingAlpha.StartPulsing();
+                        breakupPulsingAlpha.PulseEnable();
                     }
 
                     //unlock when complete

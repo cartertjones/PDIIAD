@@ -12630,7 +12630,7 @@ MonoBehaviour:
   minAlpha: 0
   maxAlpha: 1
   startDelay: 2
-  cookieClicked: 0
+  Clicked: 0
 --- !u!1 &1441228436
 GameObject:
   m_ObjectHideFlags: 0
@@ -15262,6 +15262,7 @@ MonoBehaviour:
   interactivityActive: 0
   divorceFinished: 0
   slider: {fileID: 1901431674}
+  intPanelorPage: 0
 --- !u!1 &1697892524
 GameObject:
   m_ObjectHideFlags: 0
@@ -16405,7 +16406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1878977198
 Transform:
   m_ObjectHideFlags: 0
@@ -16753,6 +16754,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slideCam: {fileID: 870529760}
+  progTracker: {fileID: 1672824177}
+  divInt: {fileID: 525486979}
   pageZeroCameras:
   - {fileID: 1985521513}
   pageOneCameras:
@@ -16811,6 +16814,7 @@ MonoBehaviour:
   pageTwelveCameras: []
   phoneScreen: {fileID: 897051219}
   SettingCam: 0
+  cameraStopped: 0
 --- !u!1 &1901431672
 GameObject:
   m_ObjectHideFlags: 0
@@ -17462,7 +17466,7 @@ MonoBehaviour:
   minAlpha: 0
   maxAlpha: 1
   startDelay: 2
-  cookieClicked: 0
+  Clicked: 0
 --- !u!58 &1944893254
 CircleCollider2D:
   m_ObjectHideFlags: 0
