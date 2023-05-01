@@ -96,6 +96,12 @@ public class ComicClicker : MonoBehaviour
 
 
                 }
+                if(progressTracker.timesThroughForward == 3)
+                {
+                    videoScript.StartEndVideo();
+                    cookiePulsingAlpha.StopPulsing();
+                    cookiePulsingAlpha.cookieClicked = true;
+                }
 
 
                 Debug.Log("check 1");

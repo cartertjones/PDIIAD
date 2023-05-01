@@ -8,12 +8,20 @@ public class VideoPlayerScript : MonoBehaviour
     [SerializeField] GameObject[] videoPanels;
     [SerializeField] VideoPlayer[] videoPlayers;
 
+    [SerializeField] private GameObject continueButton;
+
+    [SerializeField] private ProgressTracker progressTracker;
+
     private float totalFrames;
     private float currentFrame;
 
-    private bool videoPlayer1;
-    private bool videoPlayer2;
-    private bool videoPlayer3;
+    private bool videoComplete;
+
+    private bool playing;
+    private float playTime;
+
+    [SerializeField] private float videoLength;
+    [SerializeField] private float endSceneLength;
 
     private void Awake()
     {
@@ -23,6 +31,8 @@ public class VideoPlayerScript : MonoBehaviour
             videoPanels[i].gameObject.SetActive(false);
             videoPlayers[i].frame = 1;
         }
+
+        continueButton.SetActive(false);
     }
     void Start()
     {
@@ -35,82 +45,65 @@ public class VideoPlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (videoPlayer1)
+        if (videoComplete)
         {
-            StopVideo1();
+            continueButton.SetActive(true);
         }
-        if (videoPlayer2)
+        else
         {
-            StopVideo2();
-        }
-        if (videoPlayer3)
-        {
-            StopVideo3();
+            continueButton.SetActive(false);
         }
     }
     public void StartVideo1()
     {
-        Debug.Log("check video player");
         videoPanels[0].SetActive(true);
         videoPlayers[0].Play();
-        videoPlayer1 = true;
+
+        StartCoroutine(EndVideo(videoLength));
     }
     public void StartVideo2()
     {
         videoPanels[1].SetActive(true);
         videoPlayers[1].Play();
-        videoPlayer2 = true;
+
+        StartCoroutine(EndVideo(videoLength));
     }
     public void StartVideo3()
     {
-        Debug.Log("check video player");
         videoPanels[2].SetActive(true);
         videoPlayers[2].Play();
-        videoPlayer3 = true;
-    }
-    public void StopVideo1()
-    {
 
-            totalFrames = videoPlayers[0].frameCount - 1;
-            currentFrame = videoPlayers[0].frame;
-            if (currentFrame >= totalFrames)
-            {
-                videoPanels[0].gameObject.SetActive(false);
-                //videoPlaying = false;
-            }
-            /*if (videoPlayers[i].isPlaying)
-            {
-                videoPanels[i].gameObject.SetActive(true);
-            }*/
+        StartCoroutine(EndVideo(videoLength));
     }
-    public void StopVideo2()
-    {
 
-        totalFrames = videoPlayers[1].frameCount - 1;
-        currentFrame = videoPlayers[1].frame;
-        if (currentFrame >= totalFrames)
+    public void StartEndVideo()
+    {
+        videoPanels[3].SetActive(true);
+        videoPlayers[3].Play();
+
+        StartCoroutine(EndVideo(endSceneLength));
+    }
+
+    public void ContinueButtonPressed()
+    {
+        videoComplete = false;
+
+        foreach(GameObject videoPanel in videoPanels)
         {
-            videoPanels[1].gameObject.SetActive(false);
-            //videoPlaying = false;
+            videoPanel.SetActive(false);
         }
-        /*if (videoPlayers[i].isPlaying)
-        {
-            videoPanels[i].gameObject.SetActive(true);
-        }*/
-    }
-    public void StopVideo3()
-    {
 
-        totalFrames = videoPlayers[2].frameCount - 1;
-        currentFrame = videoPlayers[2].frame;
-        if (currentFrame >= totalFrames)
+        continueButton.SetActive(false);
+
+        if(progressTracker.timesThroughForward == 3)
         {
-            videoPanels[2].gameObject.SetActive(false);
-            //videoPlaying = false;
+            StartEndVideo();
         }
-        /*if (videoPlayers[i].isPlaying)
-        {
-            videoPanels[i].gameObject.SetActive(true);
-        }*/
+    }
+
+    private IEnumerator EndVideo(float videoLength)
+    {
+        yield return new WaitForSeconds(videoLength);
+        videoComplete = true;
     }
 }
