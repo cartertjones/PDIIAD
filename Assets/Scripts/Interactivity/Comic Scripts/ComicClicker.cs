@@ -39,6 +39,7 @@ public class ComicClicker : MonoBehaviour
     public PulsingAlpha breakupPulsingAlpha;
     public PulsingAlpha bullyPulsingAlpha;
 
+    [SerializeField] private MessageInteractivity mi;
 
 
     void Awake()
@@ -123,12 +124,14 @@ public class ComicClicker : MonoBehaviour
             {
                 cameraManager.MoveToPhone();
                 breakupPulsingAlpha.StopPulsing();
+                
+                StartCoroutine(mi.ShowInstructions());
                
             }
             if (hit.collider.gameObject == interactivity[4]) // if the interactivity 4 (bully) is clicked - 
             {
                 pageManager.ActivateBully();
-                progressTracker.bullyFinished = true;
+                progressTracker.bullyStarted = true;
                 slideCam.ActivityComplete = true;
                
 

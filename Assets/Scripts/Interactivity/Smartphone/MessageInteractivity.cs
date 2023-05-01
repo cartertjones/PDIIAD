@@ -90,9 +90,14 @@ public class MessageInteractivity : MonoBehaviour
     [SerializeField] private CameraManager camMan;
     [SerializeField] private ProgressTracker progressTracker;
 
+    [SerializeField] private GameObject instructions;
+    private bool instructionsActive;
+
     void Awake()
     {
         activityComplete = false;
+
+        instructionsActive = false;
 
         m = GetComponent<Messages>();
         redFlags = new List<int>();
@@ -107,8 +112,8 @@ public class MessageInteractivity : MonoBehaviour
         enlargedRedFlag = enlargedMessage.transform.GetChild(2).gameObject;
 
         //hardcoded im sorry
-        enlargedX = this.gameObject.transform.position.x + -25;
-        enlargedY = this.gameObject.transform.position.y + 3;
+        enlargedX = this.gameObject.transform.position.x + -30;
+        enlargedY = this.gameObject.transform.position.y + 5;
 
         enlargedRedFlag.SetActive(false);
 
@@ -122,10 +127,19 @@ public class MessageInteractivity : MonoBehaviour
                 redFlags.Add(index);
             }
         }
+
+        instructions = GameObject.Find("Canvas/Instructions/Breakup");
+        instructions.SetActive(false);
     }
 
     void Update()
     {
+        //deactivate interactivity while instructions are visible
+        if(instructionsActive)
+        {
+            return;
+        }
+
         enlargedRedFlag.SetActive(false);
 
         if(activityComplete || !progressTracker.interactivityActive || !progressTracker.movingForward)
@@ -252,5 +266,18 @@ public class MessageInteractivity : MonoBehaviour
         if (bound1 > bound2)
             return testValue >= bound2 && testValue <= bound1;
         return testValue >= bound1 && testValue <= bound2;
+    }
+
+
+    public IEnumerator ShowInstructions()
+    {
+        yield return new WaitForSeconds(1);
+        instructions.SetActive(true);
+        instructionsActive = true;
+    }
+    public void HideInstructions()
+    {
+        instructions.SetActive(false);
+        instructionsActive = false;
     }
 }

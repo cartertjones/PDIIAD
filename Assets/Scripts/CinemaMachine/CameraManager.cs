@@ -112,6 +112,12 @@ public class CameraManager : MonoBehaviour
                 slideCam.OnInteractivePanel = true;
                 slideCam.ActivityComplete = false;
             }
+
+            if(page == 4 && panel == 5)
+            {
+                slideCam.OnInteractivePanel = true;
+                slideCam.ActivityComplete = false;
+            }
             if (panel == pages[page].Length - 1) // check if panel that we are on is the last panel by checking the length of the array. Have to minus one due to 0 position of array
             {
                 Debug.Log("On last panel");

@@ -14,6 +14,11 @@ public class PulsingAlpha : MonoBehaviour
     private Renderer render;
     private GameObject object1;
 
+    private enum Purpose{DIVORCE, BULLYING, BREAKUP, WEDDING, COOKIE};
+    [SerializeField] private Purpose purpose;
+
+    private ProgressTracker progressTracker;
+
     public bool cookieClicked = false;
 
     void Start()
@@ -21,6 +26,8 @@ public class PulsingAlpha : MonoBehaviour
         render = GetComponent<Renderer>();
         object1 = GetComponent<GameObject>();
         render.enabled = false;
+
+        progressTracker = GameObject.Find("Page Manager").GetComponent<ProgressTracker>();
     }
 
     void Update()
@@ -35,8 +42,30 @@ public class PulsingAlpha : MonoBehaviour
         else
         {
             Color color = render.material.color;
-            color.a = 1f;
+            color.a = 0f;
             render.material.color = color;
+        }
+
+        //used to access specific booleans depending on the pulsor's purpose. some are unused but added in case of need for expansion.
+        //turns out this wasnt needed but im leaving it here -carter
+        switch(purpose.ToString())
+        {
+            case "DIVORCE":
+                break;
+            case "BULLYING":
+                if(progressTracker.bullyStarted)
+                {
+                    StopPulsing();
+                }
+                break;
+            case "BREAKUP":
+                break;
+            case "WEDDING":
+                break;
+            case "COOKIE":
+                break;
+            default:
+                break;
         }
     }
 

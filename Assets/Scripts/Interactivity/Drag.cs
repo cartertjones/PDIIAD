@@ -7,12 +7,19 @@ public class Drag : MonoBehaviour
     private Vector2 difference = Vector2.zero;
 
     private bool mouseDown;
+    private bool locked;
 
     private void OnMouseDown()
     {
         mouseDown = false;
         difference = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
         AudioManager.Instance.PlaySFX("click");
+
+        if(transform.parent.name == "MagnifyingGlass")
+        {
+            MagnifyingGlass mg = transform.GetComponent<MagnifyingGlass>();
+            locked = mg.InstructionsActive;
+        }
     }
 
     private void OnMouseDrag()

@@ -29,7 +29,7 @@ public class ProgressTracker : MonoBehaviour
     public bool interactivityActive;
 
     public bool divorceFinished;
-    public bool bullyFinished;
+    public bool bullyStarted;
 
     [SerializeField] private Slider slider;
     private bool onPage1;
@@ -39,6 +39,8 @@ public class ProgressTracker : MonoBehaviour
     public bool onIntPanel = false;
 
     public bool breakupInt;
+
+    [SerializeField] private List<GameObject> instructionsList;
 
 
     void Start()
@@ -123,12 +125,12 @@ public class ProgressTracker : MonoBehaviour
             case 2:
                 if (interactivityActive && movingForward && !slideCam.IsMoving)
                 {
-                    if(!bullyFinished)
+                    if(!bullyStarted)
                     {
                         slideCam.SliderUnlocked = false;
                         bullyPulsingAlpha.PulseEnable();
                     }
-                    if (bullyFinished)
+                    if (bullyStarted)
                     {
                         bullyPulsingAlpha.StopPulsing();
                         slideCam.SliderUnlocked = true;
@@ -155,12 +157,15 @@ public class ProgressTracker : MonoBehaviour
                 }
                 break;
             case 4:
-                if(interactivityActive && movingForward)
+                if(slideCam.OnInteractivePanel)
                 {
                     if(!weddingInteractivity.ActivityComplete)
                     {
                         slideCam.SliderUnlocked = false;
-                        weddingInteractivity.Show();
+                        if(!weddingInteractivity.ActivityActive)
+                        {
+                            weddingInteractivity.Show();
+                        }
                     }
 
                     //unlock when complete
@@ -184,6 +189,8 @@ public class ProgressTracker : MonoBehaviour
                 {
                     timesThroughForward++;
                     movingForward = false;
+
+                    Invoke("ActivateDan", 1);
                 }
 
                 break;
@@ -207,5 +214,18 @@ public class ProgressTracker : MonoBehaviour
         divorceInteractivity.Hide();
         weddingInteractivity.Hide();
         //TODO add more interactivity connections
+
+        //hide instructions also
+        foreach(GameObject obj in instructionsList)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    //referenced in switch, called by invoke line 189
+    private void ActivateDan()
+    {
+        MovingDan movingDan = GameObject.Find("Moving Dan").GetComponent<MovingDan>();
+        movingDan.ActivateDan();
     }
 }

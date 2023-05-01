@@ -11,6 +11,8 @@ public class MagnifyingGlass : MonoBehaviour
 
     [SerializeField] private Sprite finalImage;
 
+    private SlideCam slideCam;
+
     private bool activityComplete;
     public bool ActivityComplete{
         get{
@@ -21,6 +23,17 @@ public class MagnifyingGlass : MonoBehaviour
         }
     }
 
+    [SerializeField] private GameObject instructions;
+    private bool instructionsActive;
+    public bool InstructionsActive{
+        get{return instructionsActive;}
+        set{instructionsActive = value;}
+    }
+    private bool activityActive;
+    public bool ActivityActive{
+        get{return activityActive;}
+        set{activityActive = value;}
+    }
     void Start()
     {
         lens = GameObject.Find("MagnifyingGlass/Lens").GetComponent<Lens>();
@@ -30,6 +43,13 @@ public class MagnifyingGlass : MonoBehaviour
         
         gameObject.SetActive(false);
         mgt = GetComponent<MagnifyingGlassTargeter>();
+
+        slideCam = GameObject.Find("Main Camera").GetComponent<SlideCam>();
+
+        instructionsActive = false;
+        instructions.SetActive(false);
+
+        activityActive = false;
     }
 
     void Update()
@@ -65,5 +85,22 @@ public class MagnifyingGlass : MonoBehaviour
     {
         gameObject.SetActive(true);
         bigSheet.SetActive(true);
+
+        StartCoroutine(ShowInstructions());
+    }
+
+    private IEnumerator ShowInstructions()
+    {
+        yield return new WaitForSeconds(1);
+        instructions.SetActive(true);
+        instructionsActive = true;
+        activityActive = true;
+    }
+
+    public void HideInstructions()
+    {
+        instructions.SetActive(false);
+        Debug.Log("hiding instructions");
+        instructionsActive = false;
     }
 }

@@ -46,7 +46,7 @@ public class Messages : MonoBehaviour
 
     private float messageY = -100;
     private float prevMessageYSize = 0;
-    private float messageWidth = 4f;
+    private float messageWidth = 6f;
     
     [SerializeField]
     private float messageMargins;
