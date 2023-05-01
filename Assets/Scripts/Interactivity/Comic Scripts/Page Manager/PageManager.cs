@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,29 @@ public class PageManager : MonoBehaviour
 {
     [SerializeField] GameObject[] pages;
     [SerializeField] GameObject[] inversePages;
+    [SerializeField] GameObject[] interactivepages;
     [SerializeField] private GameObject cover;
     // Start is called before the first frame update
+
+
+    private float minAlpha = 0f; // the minimum alpha value for the fade effect
+    private float maxAlpha = 1f; // the maximum alpha value for the fade effect
+    private float currentAlpha = 0f;
+    private float fadeDuration = 2f; // Fade duration in seconds
+    private float elapsedTime; // Time elapsed since fading started
+    private float t;
+
+
+
     void Start()
     {
+        Debug.Log("hide pages");
         pages[11].gameObject.SetActive(false);
         pages[12].gameObject.SetActive(false);
         inversePages[11].gameObject.SetActive(false);
         inversePages[12].gameObject.SetActive(false);
+        interactivepages[0].gameObject.SetActive(false);
+
     }
     public void AddPages()
     {
@@ -55,5 +71,29 @@ public class PageManager : MonoBehaviour
     public void ActivateCover(bool param)
     {
         cover.SetActive(param);
+    }
+    public void ActivateBully()
+    {
+        StartCoroutine(FadeCoroutine());
+        /*
+        interactivepages[0].gameObject.SetActive(true);
+        elapsedTime += Time.deltaTime;
+        t = Mathf.Clamp01(elapsedTime / fadeDuration);
+        currentAlpha = Mathf.Lerp(minAlpha, maxAlpha, t);
+        */
+        // add stuff here to fade in
+    }
+    private IEnumerator FadeCoroutine()
+    {
+        Debug.Log("Fade coroutine called");
+        interactivepages[0].gameObject.SetActive(true);
+        elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            elapsedTime += Time.deltaTime;
+            currentAlpha = Mathf.Lerp(minAlpha, maxAlpha, elapsedTime / fadeDuration);
+            interactivepages[0].GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, currentAlpha);
+        }
     }
 }

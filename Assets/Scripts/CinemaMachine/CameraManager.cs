@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using System;
 using Unity.VisualScripting;
+using TMPro;
 
 public class CameraManager : MonoBehaviour
 {
@@ -47,9 +48,10 @@ public class CameraManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("on panel" + slideCam.onAPanel);
+        Debug.Log("on last panel" + slideCam.onLastPanelInPage);
         brain = FindObjectOfType<CinemachineBrain>();
         pages = new GameObject[][] { pageZeroCameras, pageOneCameras, pageTwoCameras, pageThreeCameras, pageFourCameras, pageFiveCameras, pageSixCameras, pageSevenCameras, pageEightCameras, pageNineCameras, pageTenCameras, pageElevenCameras, pageTwelveCameras };
-        //pageZeroCameras[0].gameObject.SetActive(true);
         currentPage = 0;
         currentPanel = 0;
         SettingCam = false;
@@ -58,7 +60,10 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!SettingCam)
+        //Debug.Log("on panel" + slideCam.onAPanel);
+        //Debug.Log("on last panel" + slideCam.onLastPanelInPage);
+
+        if (!SettingCam)
         {
             lastPage = currentPage;
             lastPanel = currentPanel;
@@ -73,39 +78,61 @@ public class CameraManager : MonoBehaviour
 
     public void MoveToPanel(int page, int panel)
     {
-        pages[lastPage][lastPanel].gameObject.SetActive(false);
-        pages[page][panel].gameObject.SetActive(true);
-        currentPage = page;
-        currentPanel = panel;
-        SettingCam = false;
-        Debug.Log("current page " + currentPage + " current panel " + currentPanel);
-        Debug.Log("last page " + lastPage + " last panel " + lastPanel);
-       // Debug.Log("pages[page][panel]" + page + panel);
-        //Debug.Log("pages[page].Length " + pages[page].Length);
-        panelIndex = panel;
-        Debug.Log("panel index clicker " + panelIndex);
-        if (page == 1 && panel != 3 )
+        Debug.Log("Moved to panel");
+        if ( slideCam.ActivityComplete)
         {
-            progTracker.intPanelorPage = false;
-            divInt.Hide();
-        }
-        if (panel == pages[page].Length -1 ) // check if panel that we are on is the last panel by checking the length of the array. Have to minus one due to 0 position of array
-        {
-            Debug.Log("On last panel");
-            slideCam.onLastPanelInPage = true;
-            slideCam.onAPanel = false;
-            if (page == 1)
+            pages[lastPage][lastPanel].gameObject.SetActive(false);
+            pages[page][panel].gameObject.SetActive(true);
+            currentPage = page;
+            currentPanel = panel;
+            SettingCam = false;
+            Debug.Log("current page " + currentPage + " current panel " + currentPanel);
+            Debug.Log("last page " + lastPage + " last panel " + lastPanel);
+            // Debug.Log("pages[page][panel]" + page + panel);
+            //Debug.Log("pages[page].Length " + pages[page].Length);
+            panelIndex = panel;
+            Debug.Log("panel index clicker " + panelIndex);
+            if (page == 0 && panel == 0)
             {
-                progTracker.onIntPanel = true;
-                StartCoroutine(WaitAndSetBoolCoroutine());
+                slideCam.onSliderView = true;
+                slideCam.onLastPanelInPage = false;
+            }
+            if (page == 1 && panel != 3)
+            {
+                progTracker.intPanelorPage = false;
+                divInt.Hide();
+            }
+            if (page == 2 && panel == 6)
+            {
+                slideCam.OnInteractivePanel = true;
+                slideCam.ActivityComplete = false;
+            }
+            if (page == 3 && panel == 2)
+            {
+                slideCam.OnInteractivePanel = true;
+                slideCam.ActivityComplete = false;
+            }
+            if (panel == pages[page].Length - 1) // check if panel that we are on is the last panel by checking the length of the array. Have to minus one due to 0 position of array
+            {
+                Debug.Log("On last panel");
+                if (page != 0 && panel != 0)
+                {
+                    slideCam.onLastPanelInPage = true;
+
+                }
+                slideCam.onAPanel = false;
+                if (page == 1)
+                {
+                    progTracker.onIntPanel = true;
+                    StartCoroutine(WaitAndSetBoolCoroutine());
+                }
+            }
+            else
+            {
+                slideCam.onLastPanelInPage = false;
+                slideCam.onAPanel = true;
             }
         }
-        else
-        {
-            slideCam.onLastPanelInPage = false;
-            slideCam.onAPanel = true;
-        }
-
     }
     public void SetMainCamera()
     {
@@ -122,18 +149,6 @@ public class CameraManager : MonoBehaviour
             panelIndex++;
 
         }
-        /*  Debug.Log("panel index " + panelIndex);
-          panelIndex = panelIndex + 1;
-          Debug.Log("panel index after + 1  " + panelIndex);
-
-          Debug.Log("current page " + currentPage + " current panel " + currentPanel);
-          Debug.Log("last page " + lastPage + " last panel " + lastPanel);
-          pages[lastPage][lastPanel].gameObject.SetActive(false);
-          Debug.Log(pages[currentPage][currentPanel].gameObject);
-          pages[currentPage][currentPanel].gameObject.SetActive(true);
-          Debug.Log("Current page check 2 : current page " + currentPage + " current panel " + currentPanel);
-        
-          SettingCam = false;*/
         Debug.Log("next page check: current panel " + currentPanel);
         Debug.Log("next page check: panel Index " + panelIndex);
         Debug.Log("next page check: current panel + 1 " + currentPanel + 1);

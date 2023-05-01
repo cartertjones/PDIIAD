@@ -19,8 +19,9 @@ public class SlideCam : MonoBehaviour
         set{ sliderUnlocked = value; }
     }
 
-    public bool onLastPanelInPage = true; // bool for checking in on last panel in a page
+    public bool onLastPanelInPage = false; // bool for checking in on last panel in a page
     public bool onAPanel = false;
+    public bool onSliderView = true;
 
 
     Camera m_Camera;
@@ -36,7 +37,14 @@ public class SlideCam : MonoBehaviour
     private float startingSliderValue;
     private bool isActivated = false;
     private int pageVal;
-    
+
+    //used to lock arrow key in panel view
+    private bool activityComplete;
+    public bool ActivityComplete
+    {
+        get { return activityComplete; }
+        set { activityComplete = value; }
+    }
 
     public int PageVal{
         get
@@ -64,10 +72,18 @@ public class SlideCam : MonoBehaviour
         get{ return isMoving; }
     }
 
+    private bool onInteractivePanel;
+    public bool OnInteractivePanel
+    {
+        get{ return onInteractivePanel; }
+        set { onInteractivePanel = value; }
+    }
+
     private float previousValue;
 
     void Awake()
     {
+        onLastPanelInPage = false;
         isMoving = false;
         sliderUnlocked = true;
         //Camera Stuff
@@ -94,6 +110,9 @@ public class SlideCam : MonoBehaviour
         {
             obj.SetActive(false);
         }
+
+        onInteractivePanel = false;
+        activityComplete = true;
     }
 
     // Update is called once per frame
@@ -117,7 +136,10 @@ public class SlideCam : MonoBehaviour
         {
             ActivateSlider();
         }
-        
+        if (onAPanel || onLastPanelInPage)
+        {
+            onSliderView = false;
+        }
         //disable movement ui if locked and not on first time through
         if(progressTracker.timesThroughForward >= 0)
         {
@@ -133,16 +155,27 @@ public class SlideCam : MonoBehaviour
                 {
                     case "Slider":
                         //set slider to sliderUnlocked value
-                        obj.SetActive(sliderUnlocked);
+                        if (onSliderView)
+                        {
+                            obj.SetActive(sliderUnlocked);
+                        }    
+
                         break;
                     case "Slider Backing":
-                        obj.SetActive(sliderUnlocked);
+                        if (onSliderView)
+                        {
+                            obj.SetActive(sliderUnlocked);
+                        }
                         break;
                     case "Next Page":
                         if(progressTracker.movingForward){obj.SetActive(true);}
                         else{obj.SetActive(false);}
 
-                        if(slider.value == slider.maxValue){obj.SetActive(false);}
+                        //hide if on panel with incomplete interactivity
+                        if (onInteractivePanel && !activityComplete) { obj.SetActive(false); }
+                        else { obj.SetActive(true); }
+
+                        if (slider.value == slider.maxValue){obj.SetActive(false);}
 
                         if(!sliderUnlocked && !onAPanel){obj.SetActive(false);}
                         break;
@@ -204,8 +237,10 @@ public class SlideCam : MonoBehaviour
     }
     public void NextPage()
     {
-        if (sliderUnlocked && onLastPanelInPage)
+        if (sliderUnlocked && onLastPanelInPage || sliderUnlocked && onSliderView)
         {
+            onLastPanelInPage = false;
+            onSliderView = true;
             cameraManager.SetMainCamera();
             movingForward = true;
             CheckPage(slider.value);
@@ -228,6 +263,7 @@ public class SlideCam : MonoBehaviour
     {
         if(sliderUnlocked && onLastPanelInPage)
         {
+            onLastPanelInPage = false;
             cameraManager.SetMainCamera();
             movingForward = false;
             CheckPage(slider.value);

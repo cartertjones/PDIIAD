@@ -10,7 +10,7 @@ public class PulsingAlpha : MonoBehaviour
     public float startDelay = 2f; // the amount of time to wait before starting the pulsing effect
 
     private bool isPulsing = false;
-    private float currentAlpha = 1f;
+    private float currentAlpha = 0f;
     private Renderer render;
     private GameObject object1;
 
@@ -57,6 +57,8 @@ public class PulsingAlpha : MonoBehaviour
 
     public void StopPulsing()
     {
+
         isPulsing = false;
+        render.enabled = false;
     }
 }

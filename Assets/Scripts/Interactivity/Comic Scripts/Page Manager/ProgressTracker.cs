@@ -15,6 +15,8 @@ public class ProgressTracker : MonoBehaviour
     public MagnifyingGlass weddingInteractivity;
     public PulsingAlpha cookiePulsingAlpha;
     public PulsingAlpha breakupPulsingAlpha;
+    public PulsingAlpha bullyPulsingAlpha;
+
 
 
     public float timesThroughForward = 0;
@@ -27,6 +29,7 @@ public class ProgressTracker : MonoBehaviour
     public bool interactivityActive;
 
     public bool divorceFinished;
+    public bool bullyFinished;
 
     [SerializeField] private Slider slider;
     private bool onPage1;
@@ -35,13 +38,14 @@ public class ProgressTracker : MonoBehaviour
     public bool intPanelorPage = false; // bool for  if on a page view or interactive panel
     public bool onIntPanel = false;
 
+    public bool breakupInt;
 
 
     void Start()
     {
         movingForward = true;
         interactivityActive = false;
-
+        breakupInt = false;
         divorceFinished = false;
 
         //hide all interactivity at start
@@ -116,9 +120,25 @@ public class ProgressTracker : MonoBehaviour
                     }
                 }
                 break;
+            case 2:
+                if (interactivityActive && movingForward && !slideCam.IsMoving)
+                {
+                    if(!bullyFinished)
+                    {
+                        slideCam.SliderUnlocked = false;
+                        bullyPulsingAlpha.PulseEnable();
+                    }
+                    if (bullyFinished)
+                    {
+                        bullyPulsingAlpha.StopPulsing();
+                        slideCam.SliderUnlocked = true;
+                    }
+                }
+                break;
             case 3:
                 if(interactivityActive && movingForward)
                 {
+                    breakupInt = true;
                     if(!messageInteractivity.ActivityComplete)
                     {
                         slideCam.SliderUnlocked = false;

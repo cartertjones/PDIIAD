@@ -8,7 +8,9 @@ using TMPro;
 
 //This class is the "driver" class for the message interactivity section. it works in tandem with and implements methods from Messages.cs, Message.cs, EnlargedMessage.cs, and RedFlag.cs
 public class MessageInteractivity : MonoBehaviour
-{    
+{
+    public SlideCam slideCam;
+    public ProgressTracker progTracker;
     public LayerMask layer;
     private Messages m;
 
@@ -218,6 +220,9 @@ public class MessageInteractivity : MonoBehaviour
         if(discoveredRedFlags.Count == redFlags.Count && !activityComplete)
         {
             activityComplete = true;
+            slideCam.OnInteractivePanel = false;
+            slideCam.ActivityComplete = true;
+            progressTracker.breakupInt = false;
 
             AudioManager.Instance.PlaySFX("complete");
 

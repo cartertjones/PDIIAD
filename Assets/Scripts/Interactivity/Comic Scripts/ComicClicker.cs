@@ -37,6 +37,7 @@ public class ComicClicker : MonoBehaviour
     public CameraManager cameraManager;
     public PulsingAlpha cookiePulsingAlpha;
     public PulsingAlpha breakupPulsingAlpha;
+    public PulsingAlpha bullyPulsingAlpha;
 
 
 
@@ -114,9 +115,9 @@ public class ComicClicker : MonoBehaviour
                 progressTracker.movingForward = false;
 
             }
-            if (hit.collider.gameObject == interactivity[2])
+            if (hit.collider.gameObject == interactivity[2]) // if the cover is clicked 
             {
-                //bullying interactivity add stuff here
+                //do something
             }
             if (hit.collider.gameObject == interactivity[3]) // if the interactivity3 (breakup) gameobject is clicker -
             {
@@ -124,16 +125,32 @@ public class ComicClicker : MonoBehaviour
                 breakupPulsingAlpha.StopPulsing();
                
             }
+            if (hit.collider.gameObject == interactivity[4]) // if the interactivity 4 (bully) is clicked - 
+            {
+                pageManager.ActivateBully();
+                progressTracker.bullyFinished = true;
+                slideCam.ActivityComplete = true;
+               
+
+            }
             for (int i = 0; i < panelsPages.Length; i++)
             {
                 for (int j = 0; j < panelsPages[i].Length; j++)
                 {
                     if (hit.collider.gameObject == panelsPages[i][j])
                     {
-                        Debug.Log("An object in array " + i + " at position " + j + " was clicked!");
-                        cameraManager.SettingCam = true;
-                        cameraManager.MoveToPanel(i, j);
-                        return;
+                        if (progressTracker.breakupInt && hit.collider.gameObject == panelsPages[3][3])
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            Debug.Log("An object in array " + i + " at position " + j + " was clicked!");
+                            cameraManager.SettingCam = true;
+                            cameraManager.MoveToPanel(i, j);
+                            return;
+                        }
+
                     }
                 }
             }
