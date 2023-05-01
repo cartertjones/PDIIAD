@@ -119,7 +119,7 @@ public class ProgressTracker : MonoBehaviour
                     {
                         slideCam.SliderUnlocked = true;
                         breakupPulsingAlpha.StopPulsing();
-
+                        breakupPulsingAlpha.transform.gameObject.SetActive(false);
                     }
                 }
                 break;
