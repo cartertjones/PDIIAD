@@ -14,7 +14,7 @@ public class PulsingAlpha : MonoBehaviour
     private Renderer render;
     private GameObject object1;
 
-    public bool Clicked = false;
+    public bool cookieClicked = false;
 
     void Start()
     {
@@ -47,7 +47,7 @@ public class PulsingAlpha : MonoBehaviour
 
     public void StartPulsing()
     {
-        if (!Clicked)
+        if (!cookieClicked)
         {
             render.enabled = true;
             isPulsing = true;

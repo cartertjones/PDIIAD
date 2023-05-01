@@ -31,8 +31,6 @@ public class VideoPlayerScript : MonoBehaviour
             videoPanels[i].gameObject.SetActive(false);
             videoPlayers[i].frame = 1;
         }
-
-        continueButton.SetActive(false);
     }
     void Start()
     {
@@ -40,12 +38,14 @@ public class VideoPlayerScript : MonoBehaviour
         {
             videoPlayers[i].Prepare();
         }
+
+        videoComplete = false;
+        continueButton.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (videoComplete)
+        if(videoComplete)
         {
             continueButton.SetActive(true);
         }
@@ -56,6 +56,7 @@ public class VideoPlayerScript : MonoBehaviour
     }
     public void StartVideo1()
     {
+        videoComplete = false;
         videoPanels[0].SetActive(true);
         videoPlayers[0].Play();
 
@@ -63,6 +64,7 @@ public class VideoPlayerScript : MonoBehaviour
     }
     public void StartVideo2()
     {
+        videoComplete = false;
         videoPanels[1].SetActive(true);
         videoPlayers[1].Play();
 
@@ -70,6 +72,7 @@ public class VideoPlayerScript : MonoBehaviour
     }
     public void StartVideo3()
     {
+        videoComplete = false;
         videoPanels[2].SetActive(true);
         videoPlayers[2].Play();
 
@@ -78,6 +81,7 @@ public class VideoPlayerScript : MonoBehaviour
 
     public void StartEndVideo()
     {
+        videoComplete = false;
         videoPanels[3].SetActive(true);
         videoPlayers[3].Play();
 
@@ -86,13 +90,11 @@ public class VideoPlayerScript : MonoBehaviour
 
     public void ContinueButtonPressed()
     {
-        videoComplete = false;
-
         foreach(GameObject videoPanel in videoPanels)
         {
             videoPanel.SetActive(false);
         }
-
+        videoComplete = false;
         continueButton.SetActive(false);
 
         if(progressTracker.timesThroughForward == 3)

@@ -85,7 +85,7 @@ public class ProgressTracker : MonoBehaviour
                 {
                     timesThroughBackward++;
                     movingForward = true;
-                    cookiePulsingAlpha.Clicked = false; //reset cookie pulsing
+                    cookiePulsingAlpha.cookieClicked = false; //reset cookie pulsing
                 }
                 break;
             case 1:
