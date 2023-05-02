@@ -91,10 +91,17 @@ public class MagnifyingGlass : MonoBehaviour
 
     private IEnumerator ShowInstructions()
     {
-        yield return new WaitForSeconds(1);
-        instructions.SetActive(true);
-        instructionsActive = true;
-        activityActive = true;
+        yield return new WaitForSeconds(2);
+        if(slideCam.onAPanel && !slideCam.OnInteractivePanel)
+        {
+            yield break;
+        }
+        else
+        {
+            instructions.SetActive(true);
+            instructionsActive = true;
+            activityActive = true;
+        }
     }
 
     public void HideInstructions()

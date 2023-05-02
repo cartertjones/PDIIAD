@@ -11410,7 +11410,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 424251251
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: bdd0ed44d9a1ffb4fa5cbbb8fb5b533b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -21094,6 +21094,7 @@ MonoBehaviour:
     m_Bits: 2147483647
   enlargedMessage: {fileID: 6243173601775291559, guid: 4ccf6fcca448d3e4ebf16994b463dc23, type: 3}
   activityActivator: {fileID: 1422055368}
+  notificationBlinker: {fileID: 1568247522}
   screen: {fileID: 5677765910710908084}
   smartphone: {fileID: 5677765911635356461}
   scrollSpeed: 5
@@ -21182,64 +21183,64 @@ MonoBehaviour:
   messages:
   - redFlag: 0
     sent: 0
-    content: Hey, can we talk?
+    content: danny what the hell
   - redFlag: 0
     sent: 1
-    content: Sure, what's up?
+    content: What did I do?
   - redFlag: 0
     sent: 0
-    content: I've been thinking about what we talked about the other day.
+    content: u said u were studying for ur math test
   - redFlag: 0
     sent: 1
-    content: About me talking to that girl in math class?
+    content: I was in the library studying earlier, yeah.
   - redFlag: 1
     sent: 0
-    content: Yeah, that. It just really bothered me that you were being so friendly
-      with her.
+    content: 'then why the hell were u sitting next to another GIRL? '
   - redFlag: 0
     sent: 1
-    content: I told you, we were just talking about the homework.
+    content: Emily, I told you I was meeting with my math tutor because I needed
+      help.
   - redFlag: 1
     sent: 0
-    content: But it still felt like you were crossing a line. Like you were getting
-      too close to her.
+    content: ok sure, but u didnt want to tell me that it was a woman???? u know
+      i dont like it when u talk to other girls
   - redFlag: 0
     sent: 1
-    content: I don't understand why you're so upset. I thought we agreed that it
-      was okay for me to have friends who are girls.
-  - redFlag: 0
-    sent: 0
-    content: It's not about you having friends who are girls. It's about you not
-      respecting our relationship.
+    content: What? Ew! She's my tutor!
   - redFlag: 0
     sent: 1
-    content: It just seems like you're putting more effort into your friendship with
-      her than you are into our relationship.
-  - redFlag: 0
-    sent: 0
-    content: It just seems like you're putting more effort into your friendship with
-      her than you are into our relationship.
-  - redFlag: 0
-    sent: 1
-    content: That's not true at all. I care about you and our relationship.
-  - redFlag: 0
-    sent: 0
-    content: Then why do I feel like you're not really present with me? Like you're
-      always distracted by something else.
-  - redFlag: 0
-    sent: 1
-    content: 'I''m sorry if I''ve been distant lately. I didn''t realize it was affecting
-      you like this.  '
-  - redFlag: 0
-    sent: 0
-    content: It just feels like you're not taking our relationship seriously.
-  - redFlag: 0
-    sent: 1
-    content: I am taking it seriously, I promise. I'll try to do better and show
-      you that I care.
+    content: Do you not want me to get good grades?
   - redFlag: 1
     sent: 0
-    content: I just don't know if I can trust you anymore.
+    content: if u prioritizing school over us means ur talking to other girls, no.
+  - redFlag: 0
+    sent: 1
+    content: That doesn't even make sense. I want you to do well and try to support
+      you however I can.
+  - redFlag: 0
+    sent: 0
+    content: well it seems like u don't care how i feel. ur schoolwork is ur life
+  - redFlag: 0
+    sent: 1
+    content: It just isn't like that, Emily. I've tried to explain this to you so
+      many times.
+  - redFlag: 0
+    sent: 1
+    content: I'm sorry if working towards my goals makes you uncomfortable.
+  - redFlag: 1
+    sent: 0
+    content: look danny, it's me or school. pick one.
+  - redFlag: 1
+    sent: 0
+    content: i don't have the energy to put up with a boyfriend who doesnt care about
+      me
+  - redFlag: 0
+    sent: 1
+    content: Emily, that's not how it is. Why won't you listen to my side of the
+      story?
+  - redFlag: 1
+    sent: 0
+    content: ur wasting my time. idk why i gave u a chance. dont text me anymore.
   messagePrefab: {fileID: 7492922955203175660, guid: 1826db5b33a11a64d8daece8850b3231, type: 3}
   parentObject: {fileID: 5677765910710908084}
   smartphone: {fileID: 5677765911635356461}
@@ -21683,7 +21684,7 @@ Transform:
   m_GameObject: {fileID: 8415435409414716979}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8415435411141295436}
@@ -21748,9 +21749,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 424251251
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -21825,8 +21826,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8415435411141295439}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 213.7, y: -16.5, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalPosition: {x: 209.8, y: -13.18, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 0.6641}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8415435409414716978}
@@ -21871,11 +21872,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingLayerID: 424251251
+  m_SortingLayer: 7
+  m_SortingOrder: 5
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.7075472, g: 0.54401034, b: 0.54401034, a: 0.3254902}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
