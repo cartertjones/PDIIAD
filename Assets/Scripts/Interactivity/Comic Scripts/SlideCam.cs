@@ -168,16 +168,32 @@ public class SlideCam : MonoBehaviour
                         }
                         break;
                     case "Next Page":
-                        if(progressTracker.movingForward){obj.SetActive(true);}
-                        else{obj.SetActive(false);}
 
-                        //hide if on panel with incomplete interactivity
-                        if (onInteractivePanel && !activityComplete) { obj.SetActive(false); }
-                        else { obj.SetActive(true); }
+                        //if not moving forward, hide
+                        //if on a locked panel, hide
+                        //if slider maxed out, hide
+                        //if slider locked, hide
 
-                        if (slider.value == slider.maxValue){obj.SetActive(false);}
-
-                        if(!sliderUnlocked && !onAPanel){obj.SetActive(false);}
+                        if(!progressTracker.movingForward)
+                        {
+                            obj.SetActive(false);
+                        }
+                        else if(onInteractivePanel && !activityComplete)
+                        {
+                            obj.SetActive(false);
+                        }
+                        else if(slider.value == slider.maxValue)
+                        {
+                            obj.SetActive(false);
+                        }
+                        else if(!sliderUnlocked && !onAPanel)
+                        {
+                            obj.SetActive(false);
+                        }
+                        else
+                        {
+                            obj.SetActive(true);
+                        }
                         break;
                     case "Back Page":
                         if(!progressTracker.movingForward){obj.SetActive(true);}
