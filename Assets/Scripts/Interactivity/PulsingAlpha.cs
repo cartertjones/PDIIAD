@@ -75,12 +75,15 @@ public class PulsingAlpha : MonoBehaviour
 
     public void PulseEnable()
     {
-        Invoke("StartPulsing", startDelay);
+        if(!isPulsing)
+        {
+            Invoke("StartPulsing", startDelay);
+        }
     }
 
     public void StartPulsing()
     {
-        if (!cookieClicked && !isPulsing && progressTracker.PulseHighlight)
+        if (!cookieClicked && !isPulsing)
         {
             render.enabled = true;
             isPulsing = true;

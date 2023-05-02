@@ -18,7 +18,7 @@ public class Drag : MonoBehaviour
         if(transform.parent.name == "MagnifyingGlass")
         {
             MagnifyingGlass mg = transform.GetComponent<MagnifyingGlass>();
-            locked = mg.InstructionsActive;
+            locked = !mg.InstructionsRead;
         }
     }
 

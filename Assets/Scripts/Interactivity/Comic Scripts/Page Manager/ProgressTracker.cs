@@ -51,7 +51,7 @@ public class ProgressTracker : MonoBehaviour
         set { pulseHighlight = value; }
     }
 
-        
+    [SerializeField] private VideoPlayerScript vps;
 
     void Start()
     {
@@ -71,7 +71,7 @@ public class ProgressTracker : MonoBehaviour
         pageVal = slideCam.PageVal;
 
         //activate interactivity if second time through
-        if(timesThroughForward == 1)
+        if(timesThroughForward == 2)
         {
             interactivityActive = true;
         }
@@ -106,7 +106,6 @@ public class ProgressTracker : MonoBehaviour
                     movingForward = true;
                     if (timesThroughForward != 3)
                     {
-                        Debug.Log("hide");
                         slideCam.Hide11();
                     }
                 }
@@ -178,10 +177,13 @@ public class ProgressTracker : MonoBehaviour
                 {
                     if(!weddingInteractivity.ActivityComplete)
                     {
+                        Debug.Log("interactivity incomplete");
                         slideCam.SliderUnlocked = false;
                         if(!weddingInteractivity.ActivityActive)
                         {
-                            weddingInteractivity.Show();
+                            Debug.Log("Activity is active");
+                            
+                            weddingInteractivity.Show();    
                         }
                     }
 
@@ -197,12 +199,12 @@ public class ProgressTracker : MonoBehaviour
                 {
                     if (slideCam.onSliderView && timesThroughForward == 0)
                     {
-                        pulseHighlight = true;
+                        //pulseHighlight = true;
                         panelHighlights.PulseEnable();
                     }
                     else
                     {
-                        pulseHighlight = false;
+                        //pulseHighlight = false;
                         panelHighlights.StopPulsing();
                     }
 
@@ -223,12 +225,17 @@ public class ProgressTracker : MonoBehaviour
             case 11:
                 if (movingForward)
                 {
-                    timesThroughForward++;
-                    movingForward = false;
-                    Invoke("ActivateDan", 1);
+                    if(timesThroughForward < 2)
+                    {
+                        timesThroughForward++;
+                        movingForward = false;
+                        Invoke("ActivateDan", 1);
+                    }
                 }
+                break;
 
-
+            case 12:
+                vps.StartEndVideo();
                 break;
         }
 

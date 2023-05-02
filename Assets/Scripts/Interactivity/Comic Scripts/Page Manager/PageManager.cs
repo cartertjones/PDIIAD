@@ -25,9 +25,6 @@ public class PageManager : MonoBehaviour
     {
         Debug.Log("hide pages");
         pages[11].gameObject.SetActive(false);
-        pages[12].gameObject.SetActive(false);
-        inversePages[11].gameObject.SetActive(false);
-        inversePages[12].gameObject.SetActive(false);
         interactivepages[0].gameObject.SetActive(false);
 
     }
@@ -49,7 +46,7 @@ public class PageManager : MonoBehaviour
     }
     public void RevertPages()
     {
-        for (int i = 0; i < pages.Length - 2; i++)
+        for (int i = 0; i < pages.Length-1; i++)
         {
             //skip cover
             if(i != 0)
@@ -61,12 +58,6 @@ public class PageManager : MonoBehaviour
     public void ActivatePage11()
     {
         pages[11].gameObject.SetActive(true);
-        inversePages[11].gameObject.SetActive(true);
-    }
-    public void ActivatePage12()
-    {
-        pages[12].gameObject.SetActive(true);
-        inversePages[12].gameObject.SetActive(true);
     }
     public void ActivateCover(bool param)
     {

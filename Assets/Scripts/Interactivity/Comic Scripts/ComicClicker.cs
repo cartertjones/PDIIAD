@@ -91,7 +91,6 @@ public class ComicClicker : MonoBehaviour
                     videoScript.StartVideo3();
                     pageManager.ActivatePage11();
                     slideCam.AddPage11();
-                    pageManager.ActivatePage12();
                     slideCam.AddPage12();
                     cookiePulsingAlpha.StopPulsing(); // stop the pulsing of the cookie
                     cookiePulsingAlpha.cookieClicked = true; // set cookie clicked bool so the case set in progress tracker doesnt continue to pulse it

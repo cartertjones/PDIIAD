@@ -29,6 +29,8 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private GameObject phoneScreen;
 
+    [SerializeField] private MagnifyingGlass weddingInteractivity;
+
     private CinemachineBrain brain;
 
 
@@ -97,23 +99,28 @@ public class CameraManager : MonoBehaviour
                 slideCam.onSliderView = true;
                 slideCam.onLastPanelInPage = false;
             }
-            if (page == 1 && panel != 3) // if on the first page but not panel 3 (divorce interactive panel) hide interactive slider
+            if (page == 1 && panel != 3 && progTracker.interactivityActive) // if on the first page but not panel 3 (divorce interactive panel) hide interactive slider
             {
                 progTracker.intPanelorPage = false;
                 divInt.Hide();
             }
-            if (page == 2 && panel == 6) // if on page 2 panel 6 ( breakup interactive panel) interactive panel is true and complete is false
+            if (page == 2 && panel == 6 && progTracker.interactivityActive) // if on page 2 panel 6 ( breakup interactive panel) interactive panel is true and complete is false
             {
                 slideCam.OnInteractivePanel = true;
                 slideCam.ActivityComplete = false;
             }
-            if (page == 3 && panel == 2) //if on page 3 panel 2 ( bully interactive panel) interactive panel is true and complete is false
+            if (page == 3 && panel == 2 && progTracker.interactivityActive) //if on page 3 panel 2 ( bully interactive panel) interactive panel is true and complete is false
             {
                 slideCam.OnInteractivePanel = true;
                 slideCam.ActivityComplete = false;
             }
-            if (page == 4 && panel == 5)
+            if (page == 4 && panel == 5 && progTracker.interactivityActive)
             {
+                slideCam.OnInteractivePanel = true;
+            }
+            if (page == 10 && panel == 3)
+            {
+                Debug.Log("on cookie panel");
                 slideCam.OnInteractivePanel = true;
                 slideCam.ActivityComplete = false;
             }

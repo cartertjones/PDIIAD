@@ -178,11 +178,11 @@ public class SlideCam : MonoBehaviour
                         {
                             obj.SetActive(false);
                         }
-                        else if(onInteractivePanel && !activityComplete)
+                        else if(onInteractivePanel && !activityComplete && progressTracker.interactivityActive)
                         {
                             obj.SetActive(false);
                         }
-                        else if(slider.value == slider.maxValue)
+                        else if(slider.value == slider.maxValue && !onAPanel)
                         {
                             obj.SetActive(false);
                         }

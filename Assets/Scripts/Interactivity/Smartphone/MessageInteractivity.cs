@@ -143,7 +143,7 @@ public class MessageInteractivity : MonoBehaviour
 
         enlargedRedFlag.SetActive(false);
 
-        if(activityComplete || !progressTracker.interactivityActive || !progressTracker.movingForward)
+        if(activityComplete)
         {
             notificationBlinker.SetActive(false);
         }

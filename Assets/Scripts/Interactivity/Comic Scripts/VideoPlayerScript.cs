@@ -11,6 +11,7 @@ public class VideoPlayerScript : MonoBehaviour
     [SerializeField] private GameObject continueButton;
 
     [SerializeField] private ProgressTracker progressTracker;
+    [SerializeField] private SlideCam slideCam;
 
     private float totalFrames;
     private float currentFrame;
@@ -84,6 +85,7 @@ public class VideoPlayerScript : MonoBehaviour
         videoComplete = false;
         videoPanels[3].SetActive(true);
         videoPlayers[3].Play();
+        Debug.Log("Playing end scene");
 
         StartCoroutine(EndVideo(endSceneLength));
     }
@@ -96,16 +98,12 @@ public class VideoPlayerScript : MonoBehaviour
         }
         videoComplete = false;
         continueButton.SetActive(false);
-
-        if(progressTracker.timesThroughForward == 3)
-        {
-            StartEndVideo();
-        }
     }
 
     private IEnumerator EndVideo(float videoLength)
     {
         yield return new WaitForSeconds(videoLength);
         videoComplete = true;
+        slideCam.ActivityComplete = true;
     }
 }

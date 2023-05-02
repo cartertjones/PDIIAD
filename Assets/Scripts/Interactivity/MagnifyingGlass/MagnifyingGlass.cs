@@ -11,7 +11,7 @@ public class MagnifyingGlass : MonoBehaviour
 
     [SerializeField] private Sprite finalImage;
 
-    private SlideCam slideCam;
+    [SerializeField] private SlideCam slideCam;
 
     private bool activityComplete;
     public bool ActivityComplete{
@@ -24,16 +24,17 @@ public class MagnifyingGlass : MonoBehaviour
     }
 
     [SerializeField] private GameObject instructions;
-    private bool instructionsActive;
-    public bool InstructionsActive{
-        get{return instructionsActive;}
-        set{instructionsActive = value;}
+    private bool instructionsRead;
+    public bool InstructionsRead{
+        get{return instructionsRead;}
+        set{instructionsRead = value;}
     }
     private bool activityActive;
     public bool ActivityActive{
         get{return activityActive;}
         set{activityActive = value;}
     }
+
     void Start()
     {
         lens = GameObject.Find("MagnifyingGlass/Lens").GetComponent<Lens>();
@@ -46,7 +47,7 @@ public class MagnifyingGlass : MonoBehaviour
 
         slideCam = GameObject.Find("Main Camera").GetComponent<SlideCam>();
 
-        instructionsActive = false;
+        instructionsRead = false;
         instructions.SetActive(false);
 
         activityActive = false;
@@ -82,32 +83,25 @@ public class MagnifyingGlass : MonoBehaviour
         gameObject.SetActive(false);
     }
     public void Show()
-    {
-        gameObject.SetActive(true);
-        bigSheet.SetActive(true);
-
-        StartCoroutine(ShowInstructions());
-    }
-
-    private IEnumerator ShowInstructions()
-    {
-        yield return new WaitForSeconds(2);
-        if(slideCam.onAPanel && !slideCam.OnInteractivePanel)
+    {    
+        if(slideCam.OnInteractivePanel)
         {
-            yield break;
-        }
-        else
-        {
-            instructions.SetActive(true);
-            instructionsActive = true;
-            activityActive = true;
+            gameObject.SetActive(true);
+            bigSheet.SetActive(true);
+            if(!instructionsRead)
+            {
+                ShowInstructions();
+            }
         }
     }
-
+    public void ShowInstructions()
+    {
+        instructions.SetActive(true);
+    }
     public void HideInstructions()
     {
         instructions.SetActive(false);
         Debug.Log("hiding instructions");
-        instructionsActive = false;
+        instructionsRead = true;
     }
 }
