@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PulsingAlpha : MonoBehaviour
 {
+
     public float pulseSpeed = 1f; // the speed at which the alpha value pulses
     public float minAlpha = 0f; // the minimum alpha value for the pulsing effect
     public float maxAlpha = 1f; // the maximum alpha value for the pulsing effect
@@ -32,8 +33,12 @@ public class PulsingAlpha : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log("is pulsing" + isPulsing);
+
         if (isPulsing)
         {
+            Debug.Log("is pulsing" + isPulsing);
+
             currentAlpha = Mathf.Lerp(minAlpha, maxAlpha, Mathf.PingPong(Time.time * pulseSpeed, 1f));
             Color color = render.material.color;
             color.a = currentAlpha;
@@ -41,6 +46,7 @@ public class PulsingAlpha : MonoBehaviour
         }
         else
         {
+
             Color color = render.material.color;
             color.a = 0f;
             render.material.color = color;
@@ -76,17 +82,17 @@ public class PulsingAlpha : MonoBehaviour
 
     public void StartPulsing()
     {
-        if (!cookieClicked)
+        Debug.Log("start Pulse");
+        if (!cookieClicked && !isPulsing && progressTracker.PulseHighlight)
         {
             render.enabled = true;
             isPulsing = true;
-
+            //Debug.Log("is starting");
         }
     }
 
     public void StopPulsing()
     {
-
         isPulsing = false;
         render.enabled = false;
     }

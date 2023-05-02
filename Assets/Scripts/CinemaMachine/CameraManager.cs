@@ -92,28 +92,27 @@ public class CameraManager : MonoBehaviour
             //Debug.Log("pages[page].Length " + pages[page].Length);
             panelIndex = panel;
             Debug.Log("panel index clicker " + panelIndex);
-            if (page == 0 && panel == 0)
+            if (page == 0 && panel == 0) //if on cover set slider view to true and on last panel to false
             {
                 slideCam.onSliderView = true;
                 slideCam.onLastPanelInPage = false;
             }
-            if (page == 1 && panel != 3)
+            if (page == 1 && panel != 3) // if on the first page but not panel 3 (divorce interactive panel) hide interactive slider
             {
                 progTracker.intPanelorPage = false;
                 divInt.Hide();
             }
-            if (page == 2 && panel == 6)
+            if (page == 2 && panel == 6) // if on page 2 panel 6 ( breakup interactive panel) interactive panel is true and complete is false
             {
                 slideCam.OnInteractivePanel = true;
                 slideCam.ActivityComplete = false;
             }
-            if (page == 3 && panel == 2)
+            if (page == 3 && panel == 2) //if on page 3 panel 2 ( bully interactive panel) interactive panel is true and complete is false
             {
                 slideCam.OnInteractivePanel = true;
                 slideCam.ActivityComplete = false;
             }
-
-            if(page == 4 && panel == 5)
+            if (page == 4 && panel == 5)
             {
                 slideCam.OnInteractivePanel = true;
                 slideCam.ActivityComplete = false;

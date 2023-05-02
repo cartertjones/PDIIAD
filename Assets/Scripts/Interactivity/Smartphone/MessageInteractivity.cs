@@ -21,6 +21,7 @@ public class MessageInteractivity : MonoBehaviour
     private GameObject enlargedRedFlag;
 
     [SerializeField] private GameObject activityActivator;
+    [SerializeField] private GameObject notificationBlinker;
     private float enlargedX, enlargedY;
 
     [SerializeField]
@@ -144,11 +145,11 @@ public class MessageInteractivity : MonoBehaviour
 
         if(activityComplete || !progressTracker.interactivityActive || !progressTracker.movingForward)
         {
-            activityActivator.SetActive(false);
+            notificationBlinker.SetActive(false);
         }
         else if(!activityComplete && progressTracker.interactivityActive)
         {
-            activityActivator.SetActive(true);
+            notificationBlinker.SetActive(true);
         }
 
         //left click

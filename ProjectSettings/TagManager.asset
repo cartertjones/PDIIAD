@@ -21,7 +21,7 @@ TagManager:
   - Inverted Pages
   - Interactivity
   - PostFX
-  - 
+  - Panel Highlights
   - 
   - 
   - 
@@ -54,6 +54,9 @@ TagManager:
     locked: 0
   - name: Panels
     uniqueID: 174720529
+    locked: 0
+  - name: Panel Highlights
+    uniqueID: 4192221359
     locked: 0
   - name: Buttons
     uniqueID: 974303639

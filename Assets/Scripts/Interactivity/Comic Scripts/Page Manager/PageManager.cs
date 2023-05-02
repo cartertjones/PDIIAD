@@ -96,4 +96,6 @@ public class PageManager : MonoBehaviour
             interactivepages[0].GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, currentAlpha);
         }
     }
+
+
 }

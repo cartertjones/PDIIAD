@@ -261,7 +261,7 @@ public class SlideCam : MonoBehaviour
     }
     public void BackPage()
     {
-        if(sliderUnlocked && onLastPanelInPage)
+        if(sliderUnlocked && onLastPanelInPage || sliderUnlocked && onSliderView)
         {
             onLastPanelInPage = false;
             cameraManager.SetMainCamera();
