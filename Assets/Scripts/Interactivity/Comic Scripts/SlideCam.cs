@@ -196,7 +196,7 @@ public class SlideCam : MonoBehaviour
                         }
                         break;
                     case "Back Page":
-                        if(!progressTracker.movingForward){obj.SetActive(true);}
+                        if(!progressTracker.movingForward ){obj.SetActive(true);}
                         else{obj.SetActive(false);}
 
                         if(slider.value == slider.minValue){obj.SetActive(false);}

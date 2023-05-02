@@ -37,8 +37,6 @@ public class PulsingAlpha : MonoBehaviour
 
         if (isPulsing)
         {
-            Debug.Log("is pulsing" + isPulsing);
-
             currentAlpha = Mathf.Lerp(minAlpha, maxAlpha, Mathf.PingPong(Time.time * pulseSpeed, 1f));
             Color color = render.material.color;
             color.a = currentAlpha;
@@ -82,7 +80,6 @@ public class PulsingAlpha : MonoBehaviour
 
     public void StartPulsing()
     {
-        Debug.Log("start Pulse");
         if (!cookieClicked && !isPulsing && progressTracker.PulseHighlight)
         {
             render.enabled = true;

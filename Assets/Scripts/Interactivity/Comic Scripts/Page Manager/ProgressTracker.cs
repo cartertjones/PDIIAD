@@ -17,7 +17,7 @@ public class ProgressTracker : MonoBehaviour
     public PulsingAlpha breakupPulsingAlpha;
     public PulsingAlpha bullyPulsingAlpha;
 
-    public PulsingAlpha[] panelHighlights;
+    public PulsingAlpha panelHighlights;
 
 
     public float timesThroughForward = 0;
@@ -98,25 +98,20 @@ public class ProgressTracker : MonoBehaviour
         switch(pageVal)
         {
             case 0:
+                pulseHighlight = false;
                 cookiePulsingAlpha.cookieClicked = false; //reset cookie pulsing
                 if (!movingForward && slideCamSlider.value == 0)
                 {
                     timesThroughBackward++;
                     movingForward = true;
-
+                    if (timesThroughForward != 3)
+                    {
+                        Debug.Log("hide");
+                        slideCam.Hide11();
+                    }
                 }
                 break;
             case 1:
-                if (movingForward && slideCam.onSliderView)
-                {
-                    pulseHighlight = true;
-                    panelHighlights[1].PulseEnable();
-                }
-                else
-                {
-                    pulseHighlight = false;
-                    panelHighlights[1].StopPulsing();
-                }
                 //activate divorce if moving forward and interactivity enabled (2nd time through) and camera not moving
                 if (interactivityActive && movingForward && !slideCam.IsMoving)
                 {
@@ -145,20 +140,6 @@ public class ProgressTracker : MonoBehaviour
                 }
                 break;
             case 2:
-                if (movingForward)
-                {
-                    panelHighlights[1].StopPulsing();
-                    if (slideCam.onSliderView)
-                    {
-                        pulseHighlight = true;
-                        panelHighlights[2].PulseEnable();
-                    }
-                    else
-                    {
-                        pulseHighlight = false;
-                        panelHighlights[2].StopPulsing();
-                    }
-                }
                 if (interactivityActive && movingForward && !slideCam.IsMoving)
                 {
                     if(!bullyStarted)
@@ -174,21 +155,6 @@ public class ProgressTracker : MonoBehaviour
                 }
                 break;
             case 3:
-                if (movingForward)
-                {
-                    panelHighlights[2].StopPulsing();
-                    if (slideCam.onSliderView)
-                    {
-                        pulseHighlight = true;
-                        panelHighlights[3].PulseEnable();
-                    }
-                    else
-                    {
-                        pulseHighlight = false;
-                        panelHighlights[3].StopPulsing();
-                    }
-
-                }
                 if(interactivityActive && movingForward)
                 {
                     breakupInt = true;
@@ -226,57 +192,18 @@ public class ProgressTracker : MonoBehaviour
                     }
                 }
                 break;
-            case 5:
-                if (movingForward)
-                {
-                    panelHighlights[4].StopPulsing();
-                    if (slideCam.onSliderView)
-                    {
-                        pulseHighlight = true;
-                        panelHighlights[5].PulseEnable();
-                    }
-                    else
-                    {
-                        pulseHighlight = false;
-                        panelHighlights[5].StopPulsing();
-                    }
-                }
-                break;
-            case 6:
-                if (movingForward)
-                {
-                    panelHighlights[5].StopPulsing();
-                    if (slideCam.onSliderView)
-                    {
-                        pulseHighlight = true;
-                        panelHighlights[6].PulseEnable();
-                    }
-                    else
-                    {
-                        pulseHighlight = false;
-                        panelHighlights[6].StopPulsing();
-                    }
-                }
-                break;
             case 7:
                 if (movingForward)
                 {
-                    panelHighlights[1].StopPulsing();
-                    panelHighlights[2].StopPulsing();
-                    panelHighlights[3].StopPulsing();
-                    panelHighlights[4].StopPulsing();
-                    panelHighlights[5].StopPulsing();
-                    panelHighlights[4].StopPulsing();
-                    panelHighlights[6].StopPulsing();
-                    if (slideCam.onSliderView)
+                    if (slideCam.onSliderView && timesThroughForward == 0)
                     {
                         pulseHighlight = true;
-                        panelHighlights[7].PulseEnable();
+                        panelHighlights.PulseEnable();
                     }
                     else
                     {
                         pulseHighlight = false;
-                        panelHighlights[7].StopPulsing();
+                        panelHighlights.StopPulsing();
                     }
 
                 }
@@ -284,44 +211,18 @@ public class ProgressTracker : MonoBehaviour
             case 8:
                 if (movingForward)
                 {
-                    panelHighlights[7].StopPulsing();
-                }
-                break;
-            case 9:
-                if (movingForward && slideCam.onSliderView)
-                {
-                    panelHighlights[9].PulseEnable();
-                    pulseHighlight = true;
-
-                }
-                else
-                {
-                    pulseHighlight = false;
-                    panelHighlights[9].StopPulsing();
+                    panelHighlights.StopPulsing();
                 }
                 break;
             case 10:
                 if (movingForward)
                 {
-                    panelHighlights[9].StopPulsing();
-                    if (slideCam.onSliderView)
-                    {
-                        pulseHighlight = true;
-                        panelHighlights[10].PulseEnable();
-                    }
-                    else
-                    {
-                        pulseHighlight = false;
-                        panelHighlights[10].StopPulsing();
-                    }
-
                     cookiePulsingAlpha.PulseEnable(); // start pulsing aplha of the fortune cookie object
                 }    
                 break;
             case 11:
                 if (movingForward)
                 {
-                    panelHighlights[10].StopPulsing();
                     timesThroughForward++;
                     movingForward = false;
                     Invoke("ActivateDan", 1);
@@ -363,8 +264,5 @@ public class ProgressTracker : MonoBehaviour
         MovingDan movingDan = GameObject.Find("Moving Dan").GetComponent<MovingDan>();
         movingDan.ActivateDan();
     }
-    public void StopHighlightPulse(int page)
-    {
-        panelHighlights[page].StopPulsing();
-    }
+
 }
